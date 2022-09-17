@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PontoAPI.Data;
 using PontoAPI.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace PontoAPI.Controllers
 {
@@ -8,28 +11,23 @@ namespace PontoAPI.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
+        private readonly DataContext _dataContext;
+
+        public CompanyController(DataContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
+
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult<List<Company>>> Get()
         {
             try
             {
-                var company = new Company();
-                {
-
-                };
-                if (company != null)
-                {
-                    return Ok(company);
-                }
-                else
-                {
-                    return NotFound(company);
-                }
-
+                return Ok(await _dataContext.Companies.ToListAsync());
             }
             catch
             {
-                return BadRequest("NotFound Company");
+                return BadRequest("Not Found Company");
             }
         }
 
@@ -38,16 +36,12 @@ namespace PontoAPI.Controllers
         {
             try
             {
-                var company = new Company();
-
-                if (company != null && company.Id == id)
+               var company = await _dataContext.Companies.FindAsync(id);
+               if (company == null)
                 {
-                    return Ok(company);
+                    return NotFound("Company not found.");
                 }
-                else
-                {
-                    return NotFound(company);
-                };
+               return Ok(company);
             }
             catch
             {
@@ -56,20 +50,18 @@ namespace PontoAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Company>> Delete(int id)
+        public async Task<ActionResult<List<Company>>> Delete(int id)
         {
             try
-            {
-                var company = new Company();
+            {   var company = await _dataContext.Companies.FindAsync(id);
+                if (company != null)
+                {
+                    _dataContext.Companies.Remove(company);
+                    await _dataContext.SaveChangesAsync();
 
-                if (company != null && company.Id == id)
-                {
-                    return Ok(company);
+                    return Ok(await _dataContext.Companies.ToListAsync());
                 }
-                else
-                {
-                    return NotFound(company);
-                };
+                return BadRequest("Company not found");
             }
             catch
             {
@@ -78,20 +70,13 @@ namespace PontoAPI.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<Company>> Add()
+        public async Task<ActionResult<List<Company>>> Add(Company company)
         {
             try
             {
-                var company = new Company();
-
-                if (company != null)
-                {
-                    return Ok(company);
-                }
-                else
-                {
-                    return NotFound(company);
-                };
+                _dataContext.Companies.Add(company);
+                await _dataContext.SaveChangesAsync();
+                return Ok(await _dataContext.Companies.ToListAsync());
             }
             catch
             {
@@ -100,20 +85,20 @@ namespace PontoAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Company>> Put(int id)
+        public async Task<ActionResult<List<Company>>> Put(Company company)
         {
             try
             {
-                var company = new Company();
+                var companydb = await _dataContext.Companies.FindAsync(company.Id);
+                if (companydb != null)
+                {
+                    companydb.Name = company.Name;
 
-                if (company != null && company.Id == id)
-                {
-                    return Ok(company);
+                    await _dataContext.SaveChangesAsync();
+
+                    return Ok(await _dataContext.Companies.ToListAsync());
                 }
-                else
-                {
-                    return NotFound(company);
-                };
+                return BadRequest("Company not found");
             }
             catch
             {
