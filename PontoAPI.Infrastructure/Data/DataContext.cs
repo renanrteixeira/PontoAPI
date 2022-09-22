@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PontoAPI.Models;
+using PontoAPI.Core.Entities;
 
-namespace PontoAPI.Data
+namespace PontoAPI.Infrastructure.Data
 {
     public class DataContext : DbContext
     {

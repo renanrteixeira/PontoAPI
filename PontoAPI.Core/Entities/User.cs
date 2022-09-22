@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PontoAPI.Models
+namespace PontoAPI.Core.Entities
 {
     public class User
     {

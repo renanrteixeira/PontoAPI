@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Numerics;
 
-namespace PontoAPI.Models
+namespace PontoAPI.Core.Entities
 {
     public class Company
     {

@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PontoAPI.Infrastructure.Data;
+using PontoAPI.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using PontoAPI.Data;
-using PontoAPI.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace PontoAPI.Controllers
 {

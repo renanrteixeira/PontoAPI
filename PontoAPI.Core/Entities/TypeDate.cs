@@ -1,13 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PontoAPI.Models
+
+namespace PontoAPI.Core.Entities
 {
-    public class Role
+    public class TypeDate
     {
         [Key, Required]
         public int Id { get; set; }
 
         [Required, StringLength(50)]
         public string Name { get; set; }
+
+        [Required]
+        public TimeSpan Time { get; set; }
+
+        [Required, StringLength(1)]
+        public char Weekend { get; set; }
     }
 }

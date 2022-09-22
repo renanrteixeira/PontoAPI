@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 //using Pomelo.EntityFrameworkCore.MySql;
 //using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using PontoAPI.Data;
+using PontoAPI.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
