@@ -7,6 +7,6 @@ namespace PontoAPI.Infrastructure.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<Company> Companies { get; set; }
+        public DbSet<Company> companies { get; set; }
     }
 }

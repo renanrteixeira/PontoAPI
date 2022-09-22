@@ -21,7 +21,7 @@ namespace PontoAPI.Controllers
         {
             try
             {
-                return Ok(await _dataContext.Companies.ToListAsync());
+                return Ok(await _dataContext.companies.ToListAsync());
             }
             catch
             {
@@ -34,7 +34,7 @@ namespace PontoAPI.Controllers
         {
             try
             {
-               var company = await _dataContext.Companies.FindAsync(id);
+               var company = await _dataContext.companies.FindAsync(id);
                if (company == null)
                 {
                     return NotFound("Company not found.");
@@ -51,13 +51,13 @@ namespace PontoAPI.Controllers
         public async Task<ActionResult<List<Company>>> Delete(int id)
         {
             try
-            {   var company = await _dataContext.Companies.FindAsync(id);
+            {   var company = await _dataContext.companies.FindAsync(id);
                 if (company != null)
                 {
-                    _dataContext.Companies.Remove(company);
+                    _dataContext.companies.Remove(company);
                     await _dataContext.SaveChangesAsync();
 
-                    return Ok(await _dataContext.Companies.ToListAsync());
+                    return Ok(await _dataContext.companies.ToListAsync());
                 }
                 return BadRequest("Company not found");
             }
@@ -72,9 +72,9 @@ namespace PontoAPI.Controllers
         {
             try
             {
-                _dataContext.Companies.Add(company);
+                _dataContext.companies.Add(company);
                 await _dataContext.SaveChangesAsync();
-                return Ok(await _dataContext.Companies.ToListAsync());
+                return Ok(await _dataContext.companies.ToListAsync());
             }
             catch
             {
@@ -82,19 +82,21 @@ namespace PontoAPI.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut()]
         public async Task<ActionResult<List<Company>>> Put(Company company)
         {
             try
             {
-                var companydb = await _dataContext.Companies.FindAsync(company.Id);
+                var companydb = await _dataContext.companies.FindAsync(company.Id);
                 if (companydb != null)
                 {
                     companydb.Name = company.Name;
+                    companydb.address = company.address;
+                    companydb.telephone = company.telephone;
 
                     await _dataContext.SaveChangesAsync();
 
-                    return Ok(await _dataContext.Companies.ToListAsync());
+                    return Ok(await _dataContext.companies.ToListAsync());
                 }
                 return BadRequest("Company not found");
             }
