@@ -5,17 +5,13 @@ namespace PontoAPI.Core.Entities
 {
     public class Company
     {
-        [Key, Required]
         public int Id { get; set; }
 
-        [Required, StringLength(50)]
         public string Name { get; set; }
 
-        [Required, StringLength(500)]
-        public string address { get; set; }
+        public string Address { get; set; }
 
-        [Required, StringLength(50)]
-        public string telephone { get; set; }
+        public string Telephone { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using PontoAPI.Core.Entities.Enum;
 
 namespace PontoAPI.Core.Entities
 {
@@ -14,7 +15,7 @@ namespace PontoAPI.Core.Entities
         public DateOnly Date { get; set; }
 
         [Required]
-        public int Type { get; set; }  //Gerar enumerable
+        public TypeHour Type { get; set; }  //Gerar enumerable
 
         [Required]
         public TypeDate TypeDatefk { get; set; }

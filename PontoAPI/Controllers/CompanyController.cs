@@ -1,17 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PontoAPI.Infrastructure.Data;
+using PontoAPI.Infrastructure.Interface;
 using PontoAPI.Core.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace PontoAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CompanyController : ControllerBase
+    public class CompanyController : DefaultControllerBase
     {
-        private readonly DataContext _dataContext;
+        private readonly IRepository<Company> _dataContext;
 
-        public CompanyController(DataContext dataContext)
+        public CompanyController(IRepository<Company> dataContext)
         {
             _dataContext = dataContext;
         }
@@ -21,7 +18,7 @@ namespace PontoAPI.Controllers
         {
             try
             {
-                return Ok(await _dataContext.companies.ToListAsync());
+                return Ok(await _dataContext.Get());
             }
             catch
             {
@@ -34,12 +31,12 @@ namespace PontoAPI.Controllers
         {
             try
             {
-               var company = await _dataContext.companies.FindAsync(id);
-               if (company == null)
+                var company = await _dataContext.Get(id);
+                if (company == null)
                 {
                     return NotFound("Company not found.");
                 }
-               return Ok(company);
+                return Ok(company);
             }
             catch
             {
@@ -47,19 +44,15 @@ namespace PontoAPI.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Company>>> Delete(int id)
+        [HttpDelete()]
+        public async Task<ActionResult<List<Company>>> Delete(Company company)
         {
             try
-            {   var company = await _dataContext.companies.FindAsync(id);
-                if (company != null)
-                {
-                    _dataContext.companies.Remove(company);
-                    await _dataContext.SaveChangesAsync();
-
-                    return Ok(await _dataContext.companies.ToListAsync());
-                }
-                return BadRequest("Company not found");
+            {
+                _dataContext.Delete(company);
+                return await _dataContext.SaveChangesAsync() ?
+                    Ok(_dataContext.Get()) :
+                    BadRequest("Erro ao deletar o usuário!");
             }
             catch
             {
@@ -68,13 +61,14 @@ namespace PontoAPI.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<List<Company>>> Add(Company company)
+        public async Task<ActionResult<List<Company>>> Post(Company company)
         {
             try
             {
-                _dataContext.companies.Add(company);
-                await _dataContext.SaveChangesAsync();
-                return Ok(await _dataContext.companies.ToListAsync());
+                _dataContext.Post(company);
+                return await _dataContext.SaveChangesAsync() ?
+                    Ok(_dataContext.Get()) :
+                    BadRequest("Erro ao deletar o usuário!");
             }
             catch
             {
@@ -87,16 +81,18 @@ namespace PontoAPI.Controllers
         {
             try
             {
-                var companydb = await _dataContext.companies.FindAsync(company.Id);
+                var companydb = await _dataContext.Get(company.Id);
                 if (companydb != null)
                 {
                     companydb.Name = company.Name;
-                    companydb.address = company.address;
-                    companydb.telephone = company.telephone;
+                    companydb.Address = company.Address;
+                    companydb.Telephone = company.Telephone;
 
-                    await _dataContext.SaveChangesAsync();
+                    _dataContext.Put(companydb);
+                    return await _dataContext.SaveChangesAsync()
+                        ? Ok(_dataContext.Get(company.Id))
+                        : BadRequest("Erro ao atualizar os dados!");
 
-                    return Ok(await _dataContext.companies.ToListAsync());
                 }
                 return BadRequest("Company not found");
             }
