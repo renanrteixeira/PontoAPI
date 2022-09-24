@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PontoAPI.Infrastructure.Interface;
+using PontoAPI.Application.Interface;
 using PontoAPI.Core.Entities;
 
-namespace PontoAPI.Controllers
+namespace PontoAPI.Web.Controllers
 {
     public class CompanyController : DefaultControllerBase
     {
-        private readonly IRepository<Company> _dataContext;
+        private readonly IApplication<Company> _application;
 
-        public CompanyController(IRepository<Company> dataContext)
+        public CompanyController(IApplication<Company> application)
         {
-            _dataContext = dataContext;
+            _application = application;
         }
 
         [HttpGet]
@@ -18,7 +18,7 @@ namespace PontoAPI.Controllers
         {
             try
             {
-                return Ok(await _dataContext.Get());
+                return Ok(await _application.Get());
             }
             catch
             {
@@ -31,7 +31,7 @@ namespace PontoAPI.Controllers
         {
             try
             {
-                var company = await _dataContext.Get(id);
+                var company = await _application.Get(id);
                 if (company == null)
                 {
                     return NotFound("Company not found.");
@@ -49,9 +49,9 @@ namespace PontoAPI.Controllers
         {
             try
             {
-                _dataContext.Delete(company);
-                return await _dataContext.SaveChangesAsync() ?
-                    Ok(_dataContext.Get()) :
+                _application.Delete(company);
+                return await _application.SaveChangesAsync() ?
+                    Ok(_application.Get()) :
                     BadRequest("Erro ao deletar o usuário!");
             }
             catch
@@ -65,9 +65,9 @@ namespace PontoAPI.Controllers
         {
             try
             {
-                _dataContext.Post(company);
-                return await _dataContext.SaveChangesAsync() ?
-                    Ok(_dataContext.Get()) :
+                _application.Post(company);
+                return await _application.SaveChangesAsync() ?
+                    Ok(_application.Get()) :
                     BadRequest("Erro ao deletar o usuário!");
             }
             catch
@@ -81,16 +81,16 @@ namespace PontoAPI.Controllers
         {
             try
             {
-                var companydb = await _dataContext.Get(company.Id);
+                var companydb = await _application.Get(company.Id);
                 if (companydb != null)
                 {
                     companydb.Name = company.Name;
                     companydb.Address = company.Address;
                     companydb.Telephone = company.Telephone;
 
-                    _dataContext.Put(companydb);
-                    return await _dataContext.SaveChangesAsync()
-                        ? Ok(_dataContext.Get(company.Id))
+                    await _application.Put(companydb);
+                    return await _application.SaveChangesAsync()
+                        ? Ok(_application.Get(company.Id))
                         : BadRequest("Erro ao atualizar os dados!");
 
                 }

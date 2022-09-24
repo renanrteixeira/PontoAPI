@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PontoAPI.Core", "PontoAPI.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PontoAPI.Infrastructure", "PontoAPI.Infrastructure\PontoAPI.Infrastructure.csproj", "{68EF6829-1493-4ED6-B0B2-AB6D3CA965DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PontoAPI", "PontoAPI\PontoAPI.csproj", "{A3AEC833-9DB7-4410-9F78-7DDF59F7788E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PontoAPI.Web", "PontoAPI.Web\PontoAPI.Web.csproj", "{A3AEC833-9DB7-4410-9F78-7DDF59F7788E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PontoAPI.Application", "PontoAPI.Application\PontoAPI.Application.csproj", "{B17C508D-CFC8-45B9-B8C5-9CDB5E039959}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{68EF6829-1493-4ED6-B0B2-AB6D3CA965DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68EF6829-1493-4ED6-B0B2-AB6D3CA965DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68EF6829-1493-4ED6-B0B2-AB6D3CA965DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B17C508D-CFC8-45B9-B8C5-9CDB5E039959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B17C508D-CFC8-45B9-B8C5-9CDB5E039959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B17C508D-CFC8-45B9-B8C5-9CDB5E039959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B17C508D-CFC8-45B9-B8C5-9CDB5E039959}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

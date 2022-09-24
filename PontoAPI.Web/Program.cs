@@ -1,7 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using PontoAPI.Core.Entities;
 //using Pomelo.EntityFrameworkCore.MySql;
 //using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using PontoAPI.Infrastructure.Data;
+using PontoAPI.Infrastructure.Interface;
+using PontoAPI.Application.Application;
+using PontoAPI.Application.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,9 @@ builder.Services.AddDbContext<DataContext>(options =>
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")));
     //options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<IRepository<Company>, CompanyRepository>();
+builder.Services.AddScoped<IApplication<Company>, CompanyApplication>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

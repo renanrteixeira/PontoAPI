@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PontoAPI.Core\PontoAPI.Core.csproj" />
-    <ProjectReference Include="..\PontoAPI.Infrastructure\PontoAPI.Infrastructure.csproj" />
+    <ProjectReference Include="..\PontoAPI.Application\PontoAPI.Application.csproj" />
   </ItemGroup>
 
 </Project>

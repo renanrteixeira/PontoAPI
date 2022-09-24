@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace PontoAPI.Controllers
+namespace PontoAPI.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
