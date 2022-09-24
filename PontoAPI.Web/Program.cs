@@ -19,7 +19,14 @@ builder.Services.AddDbContext<DataContext>(options =>
     //options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+//Repositorios
 builder.Services.AddScoped<IRepository<Company>, CompanyRepository>();
+builder.Services.AddScoped<IRepository<Employe>, EmployeRepository>();
+builder.Services.AddScoped<IRepository<Hour>, HourRepository>();
+builder.Services.AddScoped<IRepository<Role>, RoleRepository>();
+builder.Services.AddScoped<IRepository<TypeDate>, TypeDateRepository>();
+builder.Services.AddScoped<IRepository<User>, UserRepository>();
+//regras
 builder.Services.AddScoped<IApplication<Company>, CompanyApplication>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

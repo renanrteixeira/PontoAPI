@@ -7,11 +7,11 @@ namespace PontoAPI.Infrastructure.Interface
 
         Task<T> Get(int id);
 
-        void Post(T company);
+        void Post(T entidade);
 
-        void Put(T company);
+        void Put(T entidade);
 
-        void Delete(T company);
+        void Delete(T entidade);
 
         Task<bool> SaveChangesAsync();
 
