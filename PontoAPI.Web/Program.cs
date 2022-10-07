@@ -3,9 +3,8 @@ using PontoAPI.Core.Entities;
 //using Pomelo.EntityFrameworkCore.MySql;
 //using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using PontoAPI.Infrastructure.Data;
-using PontoAPI.Infrastructure.Interface;
-using PontoAPI.Application.Application;
-using PontoAPI.Application.Interface;
+using PontoAPI.Infrastructure.Application;
+using PontoAPI.Core.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +17,8 @@ builder.Services.AddDbContext<DataContext>(options =>
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")));
     //options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
+//AutoMapper
+//builder.Services.AddAutoMapper(typeof());
 //Repositorios
 builder.Services.AddScoped<IRepository<Company>, CompanyRepository>();
 builder.Services.AddScoped<IRepository<Employe>, EmployeRepository>();
@@ -26,8 +26,14 @@ builder.Services.AddScoped<IRepository<Hour>, HourRepository>();
 builder.Services.AddScoped<IRepository<Role>, RoleRepository>();
 builder.Services.AddScoped<IRepository<TypeDate>, TypeDateRepository>();
 builder.Services.AddScoped<IRepository<User>, UserRepository>();
+
 //regras
 builder.Services.AddScoped<IApplication<Company>, CompanyApplication>();
+builder.Services.AddScoped<IApplication<Employe>, EmployeApplication>();
+builder.Services.AddScoped<IApplication<Hour>, HourApplication>();
+builder.Services.AddScoped<IApplication<Role>, RoleApplication>();
+builder.Services.AddScoped<IApplication<TypeDate>, TypeDateApplication>();
+builder.Services.AddScoped<IApplication<User>, UserApplication>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

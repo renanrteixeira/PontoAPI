@@ -1,19 +1,17 @@
-namespace PontoAPI.Infrastructure.Interface
+namespace PontoAPI.Core.Interface
 {
-    public interface IRepository<T>
+    public interface IApplication<T>
     {
-
         Task<IEnumerable<T>> Get();
 
         Task<T> Get(int id);
 
         void Post(T entidade);
 
-        void Put(T entidade);
+        Task<T> Put(T entidade);
 
         void Delete(T entidade);
 
         Task<bool> SaveChangesAsync();
-
     }
 }

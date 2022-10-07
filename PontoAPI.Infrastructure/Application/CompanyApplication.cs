@@ -1,23 +1,22 @@
-using PontoAPI.Application.Interface;
+using PontoAPI.Core.Interface;
 using PontoAPI.Core.Entities;
-using PontoAPI.Infrastructure.Interface;
 
-namespace PontoAPI.Application.Application
+namespace PontoAPI.Infrastructure.Application
 {
-    public class TypeDateApplication : IApplication<TypeDate>
+    public class CompanyApplication : IApplication<Company>
     {
-        private readonly IRepository<TypeDate> _dataContext;
+        private readonly IRepository<Company> _dataContext;
 
-        public TypeDateApplication(IRepository<TypeDate> dataContext)
+        public CompanyApplication(IRepository<Company> dataContext)
         {
             _dataContext = dataContext;
         }
 
-        public void Delete(TypeDate typeDate)
+        public void Delete(Company company)
         {
             try
             {
-                _dataContext.Delete(typeDate);
+                _dataContext.Delete(company);
             }
             catch
             {
@@ -25,7 +24,7 @@ namespace PontoAPI.Application.Application
             }
         }
 
-        public async Task<IEnumerable<TypeDate>> Get()
+        public async Task<IEnumerable<Company>> Get()
         {
             try
             {
@@ -37,7 +36,7 @@ namespace PontoAPI.Application.Application
             }
         }
 
-        public async Task<TypeDate> Get(int id)
+        public async Task<Company> Get(int id)
         {
             try
             {
@@ -50,11 +49,11 @@ namespace PontoAPI.Application.Application
             }
         }
 
-        public void Post(TypeDate typeDate)
+        public void Post(Company company)
         {
             try
             {
-                _dataContext.Post(typeDate);
+                _dataContext.Post(company);
             }
             catch
             {
@@ -62,21 +61,21 @@ namespace PontoAPI.Application.Application
             }
         }
 
-        public async Task<TypeDate> Put(TypeDate typeDate)
+        public async Task<Company> Put(Company company)
         {
             try
             {
-                var typeDatedb = await _dataContext.Get(typeDate.Id);
-                if (typeDatedb != null)
+                var companydb = await _dataContext.Get(company.Id);
+                if (companydb != null)
                 {
-                    typeDatedb.Name = typeDate.Name;
-                    typeDatedb.Time = typeDate.Time;
-                    typeDatedb.Weekend = typeDate.Weekend;
+                    companydb.Name = company.Name;
+                    companydb.Address = company.Address;
+                    companydb.Telephone = company.Telephone;
 
-                    _dataContext.Put(typeDatedb);
+                    _dataContext.Put(companydb);
 
                 }
-                return await _dataContext.Get(typeDate.Id);
+                return await _dataContext.Get(company.Id);
             }
             catch
             {

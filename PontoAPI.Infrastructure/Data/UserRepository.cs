@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PontoAPI.Core.Entities;
-using PontoAPI.Infrastructure.Interface;
+using PontoAPI.Core.Interface;
 
 namespace PontoAPI.Infrastructure.Data
 {

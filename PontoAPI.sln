@@ -9,18 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PontoAPI.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PontoAPI.Web", "PontoAPI.Web\PontoAPI.Web.csproj", "{A3AEC833-9DB7-4410-9F78-7DDF59F7788E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PontoAPI.Application", "PontoAPI.Application\PontoAPI.Application.csproj", "{B17C508D-CFC8-45B9-B8C5-9CDB5E039959}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A3AEC833-9DB7-4410-9F78-7DDF59F7788E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3AEC833-9DB7-4410-9F78-7DDF59F7788E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3AEC833-9DB7-4410-9F78-7DDF59F7788E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3AEC833-9DB7-4410-9F78-7DDF59F7788E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EF9592F5-A1FD-4B37-ABBF-5399670114DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EF9592F5-A1FD-4B37-ABBF-5399670114DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF9592F5-A1FD-4B37-ABBF-5399670114DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,10 +23,10 @@ Global
 		{68EF6829-1493-4ED6-B0B2-AB6D3CA965DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68EF6829-1493-4ED6-B0B2-AB6D3CA965DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68EF6829-1493-4ED6-B0B2-AB6D3CA965DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B17C508D-CFC8-45B9-B8C5-9CDB5E039959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B17C508D-CFC8-45B9-B8C5-9CDB5E039959}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B17C508D-CFC8-45B9-B8C5-9CDB5E039959}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B17C508D-CFC8-45B9-B8C5-9CDB5E039959}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3AEC833-9DB7-4410-9F78-7DDF59F7788E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3AEC833-9DB7-4410-9F78-7DDF59F7788E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3AEC833-9DB7-4410-9F78-7DDF59F7788E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3AEC833-9DB7-4410-9F78-7DDF59F7788E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

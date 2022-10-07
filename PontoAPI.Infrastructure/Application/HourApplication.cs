@@ -1,8 +1,7 @@
-using PontoAPI.Application.Interface;
+using PontoAPI.Core.Interface;
 using PontoAPI.Core.Entities;
-using PontoAPI.Infrastructure.Interface;
 
-namespace PontoAPI.Application.Application
+namespace PontoAPI.Infrastructure.Application
 {
     public class HourApplication : IApplication<Hour>
     {

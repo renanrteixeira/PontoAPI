@@ -1,5 +1,5 @@
 using PontoAPI.Core.Entities;
-using PontoAPI.Infrastructure.Interface;
+using PontoAPI.Core.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace PontoAPI.Infrastructure.Data

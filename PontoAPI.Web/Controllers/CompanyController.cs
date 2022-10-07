@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PontoAPI.Application.Interface;
+using PontoAPI.Core.Interface;
 using PontoAPI.Core.Entities;
 
 namespace PontoAPI.Web.Controllers

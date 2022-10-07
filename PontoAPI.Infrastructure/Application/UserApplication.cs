@@ -1,23 +1,22 @@
-using PontoAPI.Application.Interface;
-using PontoAPI.Infrastructure.Interface;
+using PontoAPI.Core.Interface;
 using PontoAPI.Core.Entities;
 
-namespace PontoAPI.Application.Application
+namespace PontoAPI.Infrastructure.Application
 {
-    public class CompanyApplication : IApplication<Company>
+    public class UserApplication : IApplication<User>
     {
-        private readonly IRepository<Company> _dataContext;
+        private readonly IRepository<User> _dataContext;
 
-        public CompanyApplication(IRepository<Company> dataContext)
+        public UserApplication(IRepository<User> dataContext)
         {
             _dataContext = dataContext;
         }
 
-        public void Delete(Company company)
+        public void Delete(User user)
         {
             try
             {
-                _dataContext.Delete(company);
+                _dataContext.Delete(user);
             }
             catch
             {
@@ -25,7 +24,7 @@ namespace PontoAPI.Application.Application
             }
         }
 
-        public async Task<IEnumerable<Company>> Get()
+        public async Task<IEnumerable<User>> Get()
         {
             try
             {
@@ -37,12 +36,12 @@ namespace PontoAPI.Application.Application
             }
         }
 
-        public async Task<Company> Get(int id)
+        public async Task<User> Get(int id)
         {
             try
             {
-                var company = await _dataContext.Get(id);
-                return company;
+                var user = await _dataContext.Get(id);
+                return user;
             }
             catch
             {
@@ -50,11 +49,11 @@ namespace PontoAPI.Application.Application
             }
         }
 
-        public void Post(Company company)
+        public void Post(User user)
         {
             try
             {
-                _dataContext.Post(company);
+                _dataContext.Post(user);
             }
             catch
             {
@@ -62,21 +61,23 @@ namespace PontoAPI.Application.Application
             }
         }
 
-        public async Task<Company> Put(Company company)
+        public async Task<User> Put(User user)
         {
             try
             {
-                var companydb = await _dataContext.Get(company.Id);
-                if (companydb != null)
+                var userdb = await _dataContext.Get(user.Id);
+                if (userdb != null)
                 {
-                    companydb.Name = company.Name;
-                    companydb.Address = company.Address;
-                    companydb.Telephone = company.Telephone;
+                    userdb.Name = user.Name;
+                    userdb.Email = user.Email;
+                    userdb.Password = user.Password;
+                    userdb.Admin = user.Admin;
+                    userdb.Status = user.Status;
 
-                    _dataContext.Put(companydb);
+                    _dataContext.Put(userdb);
 
                 }
-                return await _dataContext.Get(company.Id);
+                return await _dataContext.Get(user.Id);
             }
             catch
             {
