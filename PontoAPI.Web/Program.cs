@@ -5,6 +5,7 @@ using PontoAPI.Core.Entities;
 using PontoAPI.Infrastructure.Data;
 using PontoAPI.Infrastructure.Application;
 using PontoAPI.Core.Interface;
+using PontoAPI.Web.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,7 @@ builder.Services.AddDbContext<DataContext>(options =>
     //options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 //AutoMapper
-//builder.Services.AddAutoMapper(typeof());
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 //Repositorios
 builder.Services.AddScoped<IRepository<Company>, CompanyRepository>();
 builder.Services.AddScoped<IRepository<Employe>, EmployeRepository>();
