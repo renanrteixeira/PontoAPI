@@ -1,15 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PontoAPI.Core.Interface;
 using PontoAPI.Core.Entities;
+using AutoMapper;
+using PontoAPI.Web.ViewModel;
 
 namespace PontoAPI.Web.Controllers
 {
     public class CompanyController : DefaultControllerBase
     {
         private readonly IApplication<Company> _application;
+        private readonly IMapper _mapper;
 
-        public CompanyController(IApplication<Company> application)
+        public CompanyController(IApplication<Company> application, IMapper mapper)
         {
+            _mapper = mapper;
             _application = application;
         }
 
@@ -31,12 +35,16 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                var company = await _application.Get(id);
-                if (company == null)
+                 var company = await _application.Get(id);
+
+                var companyViewModel = _mapper.Map<Company, CompanyViewModel>(company);
+
+                if (companyViewModel == null)
                 {
                     return NotFound("Company not found.");
                 }
-                return Ok(company);
+
+                return Ok(companyViewModel);
             }
             catch
             {
