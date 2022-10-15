@@ -18,8 +18,10 @@ builder.Services.AddDbContext<DataContext>(options =>
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")));
     //options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
+
 //Repositorios
 builder.Services.AddScoped<IRepository<Company>, CompanyRepository>();
 builder.Services.AddScoped<IRepository<Employe>, EmployeRepository>();

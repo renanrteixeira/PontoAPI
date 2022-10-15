@@ -2,11 +2,8 @@
 
 namespace PontoAPI.Core.Entities
 {
-    public class Employe
+    public class Employe : BaseId
     {
-        [Key, Required]
-        public int Id { get; set; }
-
         [Required, StringLength(50)]
         public string Name { get; set; }
 

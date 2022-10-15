@@ -1,9 +1,7 @@
 ﻿namespace PontoAPI.Core.Entities
 {
-    public class Company
+    public class Company : BaseId
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string Address { get; set; }
