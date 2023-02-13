@@ -98,13 +98,13 @@ namespace PontoAPI.Web.Controllers
                     userdb.Admin = user.Admin;
                     userdb.Status = user.Status;
 
-                    await _application.Put(userdb);
+                    await _application.Put(user);
                     return await _application.SaveChangesAsync()
                         ? Ok(await _application.Get(user.Id))
                         : BadRequest("Erro ao atualizar os dados!");
 
                 }
-                return BadRequest("User not found");
+                return BadRequest();
             }
             catch
             {

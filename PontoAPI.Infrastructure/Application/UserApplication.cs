@@ -65,18 +65,9 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
-                var userdb = await _dataContext.Get(user.Id);
-                if (userdb != null)
-                {
-                    userdb.Name = user.Name;
-                    userdb.Email = user.Email;
-                    userdb.Password = user.Password;
-                    userdb.Admin = user.Admin;
-                    userdb.Status = user.Status;
 
-                    _dataContext.Put(userdb);
+                _dataContext.Put(user);
 
-                }
                 return await _dataContext.Get(user.Id);
             }
             catch
