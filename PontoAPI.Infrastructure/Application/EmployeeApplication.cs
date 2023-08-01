@@ -3,21 +3,21 @@ using PontoAPI.Core.Entities;
 
 namespace PontoAPI.Infrastructure.Application
 {
-    public class EmployeApplication : IApplication<Employe>
+    public class EmployeeApplication : IApplication<Employee>
     {
 
-        private readonly IRepository<Employe> _dataContext;
+        private readonly IRepository<Employee> _dataContext;
 
-        public EmployeApplication(IRepository<Employe> dataContext)
+        public EmployeeApplication(IRepository<Employee> dataContext)
         {
             _dataContext = dataContext;
         }
 
-        public void Delete(Employe employe)
+        public void Delete(Employee employee)
         {
             try
             {
-                _dataContext.Delete(employe);
+                _dataContext.Delete(employee);
             }
             catch
             {
@@ -25,7 +25,7 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public async Task<IEnumerable<Employe>> Get()
+        public async Task<IEnumerable<Employee>> Get()
         {
             try
             {
@@ -37,12 +37,12 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public async Task<Employe> Get(int id)
+        public async Task<Employee> Get(int id)
         {
             try
             {
-                var employe = await _dataContext.Get(id);
-                return employe;
+                var employee = await _dataContext.Get(id);
+                return employee;
             }
             catch
             {
@@ -50,11 +50,11 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public void Post(Employe employe)
+        public void Post(Employee employee)
         {
             try
             {
-                _dataContext.Post(employe);
+                _dataContext.Post(employee);
             }
             catch
             {
@@ -62,24 +62,24 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public async Task<Employe> Put(Employe employe)
+        public async Task<Employee> Put(Employee employee)
         {
             try
             {
-                var employedb = await _dataContext.Get(employe.Id);
-                if (employedb != null)
+                var employeedb = await _dataContext.Get(employee.Id);
+                if (employeedb != null)
                 {
-                    employedb.Name = employe.Name;
-                    employedb.Rolefk = employe.Rolefk;
-                    employedb.Admission = employe.Admission;
-                    employedb.Gender = employe.Gender;
-                    employedb.Status = employe.Status;
-                    employedb.Employefk = employe.Employefk;
+                    employeedb.Name = employee.Name;
+                    employeedb.Rolefk = employee.Rolefk;
+                    employeedb.Admission = employee.Admission;
+                    employeedb.Gender = employee.Gender;
+                    employeedb.Status = employee.Status;
+                    employeedb.Employeefk = employee.Employeefk;
 
-                    _dataContext.Put(employedb);
+                    _dataContext.Put(employeedb);
 
                 }
-                return await _dataContext.Get(employe.Id);
+                return await _dataContext.Get(employee.Id);
             }
             catch
             {

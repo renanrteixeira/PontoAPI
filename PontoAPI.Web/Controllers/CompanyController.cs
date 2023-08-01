@@ -35,7 +35,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                 var company = await _application.Get(id);
+                var company = await _application.Get(id);
 
                 var companyViewModel = _mapper.Map<Company, CompanyViewModel>(company);
 
@@ -59,7 +59,7 @@ namespace PontoAPI.Web.Controllers
             {
                 _application.Delete(company);
                 return await _application.SaveChangesAsync() ?
-                    Ok(_application.Get()) :
+                    Ok(await _application.Get()) :
                     BadRequest("Erro ao deletar o usuário!");
             }
             catch
@@ -75,7 +75,7 @@ namespace PontoAPI.Web.Controllers
             {
                 _application.Post(company);
                 return await _application.SaveChangesAsync() ?
-                    Ok(_application.Get()) :
+                    Ok(await _application.Get()) :
                     BadRequest("Erro ao deletar o usuário!");
             }
             catch
@@ -98,7 +98,7 @@ namespace PontoAPI.Web.Controllers
 
                     await _application.Put(companydb);
                     return await _application.SaveChangesAsync()
-                        ? Ok(_application.Get(company.Id))
+                        ? Ok(await _application.Get(company.Id))
                         : BadRequest("Erro ao atualizar os dados!");
 
                 }

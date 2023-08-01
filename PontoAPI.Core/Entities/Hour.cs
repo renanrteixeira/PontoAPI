@@ -9,7 +9,7 @@ namespace PontoAPI.Core.Entities
         public int Id { get; set; }
 
         [Required]
-        public Employe Employefk { get; set; }
+        public Employee Employeefk { get; set; }
 
         [Required]
         public DateOnly Date { get; set; }

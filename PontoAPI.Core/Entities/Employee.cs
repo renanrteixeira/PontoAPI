@@ -2,7 +2,7 @@
 
 namespace PontoAPI.Core.Entities
 {
-    public class Employe
+    public class Employee
     {
         [Key, Required]
         public int Id { get; set; }
@@ -23,6 +23,6 @@ namespace PontoAPI.Core.Entities
         public char Status { get; set; }
 
         [Required]
-        public Employe Employefk { get; set; }
+        public Employee Employeefk { get; set; }
     }
 }

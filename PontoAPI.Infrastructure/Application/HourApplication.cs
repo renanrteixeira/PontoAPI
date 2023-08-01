@@ -68,7 +68,7 @@ namespace PontoAPI.Infrastructure.Application
                 var hourdb = await _dataContext.Get(hour.Id);
                 if (hourdb != null)
                 {
-                    hourdb.Employefk = hour.Employefk;
+                    hourdb.Employeefk = hour.Employeefk;
                     hourdb.Date = hour.Date;
                     hourdb.Type = hour.Type;
                     hourdb.TypeDatefk = hour.TypeDatefk;

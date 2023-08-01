@@ -4,20 +4,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PontoAPI.Infrastructure.Data
 {
-    public class EmployeRepository : IRepository<Employe>
+    public class EmployeeRepository : IRepository<Employee>
     {
         private readonly DataContext _dataContext;
 
-        public EmployeRepository(DataContext dataContext)
+        public EmployeeRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
 
-        public void Delete(Employe employe)
+        public void Delete(Employee employee)
         {
             try
             {
-                _dataContext.employees.Remove(employe);
+                _dataContext.employees.Remove(employee);
             }
             catch
             {
@@ -25,7 +25,7 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
-        public async Task<IEnumerable<Employe>> Get()
+        public async Task<IEnumerable<Employee>> Get()
         {
             try
             {
@@ -37,7 +37,7 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
-        public async Task<Employe> Get(int id)
+        public async Task<Employee> Get(int id)
         {
             try
             {
@@ -49,11 +49,11 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
-        public void Post(Employe employe)
+        public void Post(Employee employee)
         {
             try
             {
-                _dataContext.employees.Add(employe);
+                _dataContext.employees.Add(employee);
             }
             catch
             {
@@ -61,11 +61,11 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
-        public void Put(Employe employe)
+        public void Put(Employee employee)
         {
             try
             {
-                _dataContext.employees.Update(employe);
+                _dataContext.employees.Update(employee);
             }
             catch
             {
