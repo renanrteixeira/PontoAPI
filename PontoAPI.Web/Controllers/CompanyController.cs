@@ -22,6 +22,12 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
+                var company = await _application.Get();
+
+                if (company == null)
+                {
+                    return NotFound("Company not found.");
+                }
                 return Ok(await _application.Get());
             }
             catch
