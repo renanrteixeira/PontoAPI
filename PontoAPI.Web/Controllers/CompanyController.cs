@@ -24,15 +24,17 @@ namespace PontoAPI.Web.Controllers
             {
                 var company = await _application.Get();
 
-                if (company == null)
+                var companyViewModel = _mapper.Map<List<Company>, List<CompanyViewModel>>((List<Company>)company);
+
+                if (companyViewModel == null)
                 {
                     return NotFound("Company not found.");
                 }
-                return Ok(await _application.Get());
+                return Ok(companyViewModel);
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest("Not Found Company");
+                return BadRequest("Company not found. Error: " + ex.Message);
             }
         }
 
@@ -66,7 +68,7 @@ namespace PontoAPI.Web.Controllers
                 _application.Delete(company);
                 return await _application.SaveChangesAsync() ?
                     Ok(await _application.Get()) :
-                    BadRequest("Erro ao deletar o usuário!");
+                    BadRequest("Erro ao deletar a empresa!");
             }
             catch
             {
@@ -82,7 +84,7 @@ namespace PontoAPI.Web.Controllers
                 _application.Post(company);
                 return await _application.SaveChangesAsync() ?
                     Ok(await _application.Get()) :
-                    BadRequest("Erro ao deletar o usuário!");
+                    BadRequest("Erro ao deletar a empresa!");
             }
             catch
             {
