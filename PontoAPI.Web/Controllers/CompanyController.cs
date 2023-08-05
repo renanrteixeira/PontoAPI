@@ -22,11 +22,19 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                return Ok(await _application.Get());
+                var company = await _application.Get();
+
+                var companyViewModel = _mapper.Map<List<Company>, List<CompanyViewModel>>((List<Company>)company);
+
+                if (companyViewModel == null)
+                {
+                    return NotFound("Company not found.");
+                }
+                return Ok(companyViewModel);
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest("Not Found Company");
+                return BadRequest("Company not found. Error: " + ex.Message);
             }
         }
 

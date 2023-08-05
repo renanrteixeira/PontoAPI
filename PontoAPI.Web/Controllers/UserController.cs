@@ -17,37 +17,27 @@ namespace PontoAPI.Web.Controllers
             _mapper = mapper;
         }
 
-        [HttpDelete()]
-        public async Task<ActionResult<List<User>>> Delete(User user)
-        {
-            try
-            {
-                _application.Delete(user);
-                return await _application.SaveChangesAsync()
-                   ? Ok(await _application.Get())
-                   : BadRequest("Erro ao deletar o usuário!");
-            }
-            catch
-            {
-                return BadRequest();
-            }
-        }
-
-        [HttpGet()]
+        [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
         {
             try
             {
-                return Ok(await _application.Get());
+                var users = await _application.Get();
+                var userViewModel = _mapper.Map<List<User>, List<UserViewModel>>((List<User>)users);
+                if (users == null)
+                {
+                    return NotFound("Users not found.");
+                }
+                return Ok(users);
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest("Not Found User");
+                return BadRequest("Usuário não encontrado. Error: " + ex.Message);
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<User>>> Get(int id)
+        public async Task<ActionResult<User>> Get(int id)
         {
             try
             {
@@ -106,9 +96,9 @@ namespace PontoAPI.Web.Controllers
                 }
                 return BadRequest();
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest("Usuário não encontrado. Error: " + ex.Message);
             }
         }
     }

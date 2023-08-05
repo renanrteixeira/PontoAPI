@@ -8,7 +8,7 @@ namespace PontoAPI.Infrastructure.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<Company> companies { get; set; }
-        public DbSet<Employe> employees { get; set; }
+        public DbSet<Employee> employees { get; set; }
         public DbSet<Hour> hours { get; set; }
         public DbSet<Role> roles { get; set; }
         public DbSet<TypeDate> typedates { get; set; }

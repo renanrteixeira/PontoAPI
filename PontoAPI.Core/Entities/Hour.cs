@@ -6,7 +6,7 @@ namespace PontoAPI.Core.Entities
     public class Hour : BaseId
     {
         [Required]
-        public Employe Employefk { get; set; }
+        public Employee Employeefk { get; set; }
 
         [Required]
         public DateOnly Date { get; set; }

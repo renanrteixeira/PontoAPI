@@ -20,6 +20,6 @@ namespace PontoAPI.Core.Entities
         public char Status { get; set; }
 
         [Required]
-        public Employe Employefk { get; set; }
+        public Employee Employeefk { get; set; }
     }
 }

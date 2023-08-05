@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PontoAPI.Core.Entities;
 using PontoAPI.Core.Interface;
@@ -38,16 +38,24 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                return Ok(await _application.Get());
+                var role = await _application.Get();
+
+                var roleViewModel = _mapper.Map<List<Role>, List<RoleViewModel>>((List<Role>)role);
+
+                if (role == null)
+                {
+                    return NotFound("Role not found.");
+                }
+                return Ok(role);
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest("Not Found Role");
+                return BadRequest("Role not found. Error: " + ex.Message);
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Role>>> Get(int id)
+        public async Task<ActionResult<Role>> Get(int id)
         {
             try
             {
@@ -68,15 +76,31 @@ namespace PontoAPI.Web.Controllers
             }
         }
 
-        [HttpPost()]
-        public async Task<ActionResult<List<Role>>> Post(Role role)
+        [HttpDelete()]
+        public async Task<ActionResult<Role>> Delete(Role role)
+        {
+            try
+            {
+                _application.Delete(role);
+                return await _application.SaveChangesAsync() ?
+                        Ok(await _application.Get()) :
+                        BadRequest("Erro ao deletar o cargo!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Erro ao deletar o cargo. Error: " + ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Role>> Post(Role role)
         {
             try
             {
                 _application.Post(role);
-                return await _application.SaveChangesAsync()
-                    ? Ok(await _application.Get())
-                    : BadRequest("Erro ao inserir a área!");
+                return await _application.SaveChangesAsync() ?
+                    Ok(await _application.Get()) :
+                    BadRequest("Erro ao deletar o cargo!");
             }
             catch
             {
@@ -96,15 +120,15 @@ namespace PontoAPI.Web.Controllers
 
                     await _application.Put(roledb);
                     return await _application.SaveChangesAsync()
-                        ? Ok(await _application.Get(role.Id))
+                        ? Ok(await _application.Get(roledb.Id))
                         : BadRequest("Erro ao atualizar os dados!");
 
                 }
                 return BadRequest("Role not found");
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest("Role not found. Error: " + ex.Message);
             }
         }
     }
