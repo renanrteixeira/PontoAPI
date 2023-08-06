@@ -84,7 +84,7 @@ namespace PontoAPI.Web.Controllers
                 _application.Post(company);
                 return await _application.SaveChangesAsync() ?
                     Ok(await _application.Get()) :
-                    BadRequest("Erro ao deletar a empresa!");
+                    BadRequest("Erro ao inserir a empresa!");
             }
             catch
             {

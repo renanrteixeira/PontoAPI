@@ -55,5 +55,61 @@ namespace PontoAPI.Web.Controllers
                 return BadRequest("Usuário não encontrado. Error: " + ex.Message);
             }
         }
+
+        [HttpDelete]
+        public async Task<ActionResult<User>> Delete(User user)
+        {
+            try
+            {
+                _application.Delete(user);
+                return await _application.SaveChangesAsync() ?
+                        Ok(Get()) :
+                        BadRequest("Erro ao deletar o usuário!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Erro ao deletar o usuário. Error: " + ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<User>> Put(User user)
+        {
+            try
+            {
+                var userdb = await _application.Get(user.Id);
+                if (userdb != null)
+                {
+                    userdb.Name = user.Name;
+                    userdb.Email = user.Email;
+                    userdb.Password = user.Password;
+                    userdb.Admin = user.Admin;
+                    userdb.Status = user.Status;
+
+                    return Ok(Get());
+                }
+                return NotFound("User not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Não foi possível atualizar o usuário. Error: " + ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<User>> Post(User user)
+        {
+            try
+            {
+                _application.Post(user);
+                return await _application.SaveChangesAsync() ?
+                    Ok(Get()) :
+                    BadRequest("Erro ao inserir o usuário!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Erro ao inserir o usuário. Error:" + ex.Message);
+            }
+        }
     }
 }
