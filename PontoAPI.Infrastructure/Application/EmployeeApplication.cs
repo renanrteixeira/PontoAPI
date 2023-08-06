@@ -70,11 +70,11 @@ namespace PontoAPI.Infrastructure.Application
                 if (employeedb != null)
                 {
                     employeedb.Name = employee.Name;
-                    employeedb.Rolefk = employee.Rolefk;
+                    employeedb.Role = employee.Role;
                     employeedb.Admission = employee.Admission;
                     employeedb.Gender = employee.Gender;
                     employeedb.Status = employee.Status;
-                    employeedb.Employeefk = employee.Employeefk;
+                    employeedb.Company = employee.Company;
 
                     _dataContext.Put(employeedb);
 

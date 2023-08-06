@@ -1,6 +1,6 @@
 namespace PontoAPI.Web.ViewModel
 {
-    public class EmployeViewModel
+    public class EmployeeViewModel
     {
         public string Name { get; set; }
         public DateTime Admission { get; set; }

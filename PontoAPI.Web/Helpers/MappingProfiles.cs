@@ -9,7 +9,7 @@ namespace PontoAPI.Web.Helpers
         public MappingProfiles()
         {
             CreateMap<Company, CompanyViewModel>().ReverseMap();
-            CreateMap<Employe, EmployeViewModel>().ReverseMap();
+            CreateMap<Employee, EmployeeViewModel>().ReverseMap();
             CreateMap<Role, RoleViewModel>().ReverseMap();
             CreateMap<TypeDate, TypeDateViewModel>().ReverseMap();
             CreateMap<User, UserViewModel>().ReverseMap();
