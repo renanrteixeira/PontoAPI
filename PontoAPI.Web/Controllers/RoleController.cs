@@ -83,7 +83,7 @@ namespace PontoAPI.Web.Controllers
             {
                 _application.Delete(role);
                 return await _application.SaveChangesAsync() ?
-                        Ok(await _application.Get()) :
+                        Ok(Get()) :
                         BadRequest("Erro ao deletar o cargo!");
             }
             catch (Exception ex)
@@ -99,8 +99,8 @@ namespace PontoAPI.Web.Controllers
             {
                 _application.Post(role);
                 return await _application.SaveChangesAsync() ?
-                    Ok(await _application.Get()) :
-                    BadRequest("Erro ao deletar o cargo!");
+                    Ok(Get()) :
+                    BadRequest("Erro ao inserir o cargo!");
             }
             catch
             {
@@ -120,7 +120,7 @@ namespace PontoAPI.Web.Controllers
 
                     await _application.Put(roledb);
                     return await _application.SaveChangesAsync()
-                        ? Ok(await _application.Get(roledb.Id))
+                        ? Ok(Get(roledb.Id))
                         : BadRequest("Erro ao atualizar os dados!");
 
                 }
