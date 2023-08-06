@@ -24,7 +24,7 @@ namespace PontoAPI.Web.Controllers
             {
                 _application.Delete(role);
                 return await _application.SaveChangesAsync()
-                   ? Ok(await _application.Get())
+                   ? Ok(Get())
                    : BadRequest("Erro ao deletar a área!");
             }
             catch
@@ -42,11 +42,11 @@ namespace PontoAPI.Web.Controllers
 
                 var roleViewModel = _mapper.Map<List<Role>, List<RoleViewModel>>((List<Role>)role);
 
-                if (role == null)
+                if (roleViewModel.Count == 0)
                 {
                     return NotFound("Role not found.");
                 }
-                return Ok(role);
+                return Ok(roleViewModel);
             }
             catch (Exception ex)
             {
@@ -73,22 +73,6 @@ namespace PontoAPI.Web.Controllers
             catch
             {
                 return BadRequest();
-            }
-        }
-
-        [HttpDelete()]
-        public async Task<ActionResult<Role>> Delete(Role role)
-        {
-            try
-            {
-                _application.Delete(role);
-                return await _application.SaveChangesAsync() ?
-                        Ok(Get()) :
-                        BadRequest("Erro ao deletar o cargo!");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Erro ao deletar o cargo. Error: " + ex.Message);
             }
         }
 

@@ -24,11 +24,11 @@ namespace PontoAPI.Web.Controllers
             {
                 var users = await _application.Get();
                 var userViewModel = _mapper.Map<List<User>, List<UserViewModel>>((List<User>)users);
-                if (users == null)
+                if (userViewModel == null)
                 {
                     return NotFound("Users not found.");
                 }
-                return Ok(users);
+                return Ok(userViewModel);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace PontoAPI.Web.Controllers
             {
                 _application.Post(user);
                 return await _application.SaveChangesAsync()
-                    ? Ok(await _application.Get())
+                    ? Ok(Get())
                     : BadRequest("Erro ao inserir o usuário!");
             }
             catch
@@ -90,7 +90,7 @@ namespace PontoAPI.Web.Controllers
 
                     await _application.Put(user);
                     return await _application.SaveChangesAsync()
-                        ? Ok(await _application.Get(user.Id))
+                        ? Ok(Get(user.Id))
                         : BadRequest("Erro ao atualizar os dados!");
 
                 }
@@ -115,46 +115,6 @@ namespace PontoAPI.Web.Controllers
             catch (Exception ex)
             {
                 return BadRequest("Erro ao deletar o usuário. Error: " + ex.Message);
-            }
-        }
-
-        [HttpPut]
-        public async Task<ActionResult<User>> Put(User user)
-        {
-            try
-            {
-                var userdb = await _application.Get(user.Id);
-                if (userdb != null)
-                {
-                    userdb.Name = user.Name;
-                    userdb.Email = user.Email;
-                    userdb.Password = user.Password;
-                    userdb.Admin = user.Admin;
-                    userdb.Status = user.Status;
-
-                    return Ok(Get());
-                }
-                return NotFound("User not found.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Não foi possível atualizar o usuário. Error: " + ex.Message);
-            }
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<User>> Post(User user)
-        {
-            try
-            {
-                _application.Post(user);
-                return await _application.SaveChangesAsync() ?
-                    Ok(Get()) :
-                    BadRequest("Erro ao inserir o usuário!");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Erro ao inserir o usuário. Error:" + ex.Message);
             }
         }
     }
