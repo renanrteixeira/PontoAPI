@@ -42,13 +42,59 @@ namespace PontoAPI.Web.Controllers
             try
             {
                 var user = await _application.Get(id);
+
                 var userViewModel = _mapper.Map<User, UserViewModel>(user);
+
                 if (userViewModel == null)
                 {
-                    return NotFound("Users not found.");
+                    return NotFound("User not found.");
                 }
-                return Ok(userViewModel);
 
+                return Ok(userViewModel);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost()]
+        public async Task<ActionResult<List<User>>> Post(User user)
+        {
+            try
+            {
+                _application.Post(user);
+                return await _application.SaveChangesAsync()
+                    ? Ok(await _application.Get())
+                    : BadRequest("Erro ao inserir o usuário!");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut()]
+        public async Task<ActionResult<User>> Put(User user)
+        {
+            try
+            {
+                var userdb = await _application.Get(user.Id);
+                if (userdb != null)
+                {
+                    userdb.Name = user.Name;
+                    userdb.Email = user.Email;
+                    userdb.Password = user.Password;
+                    userdb.Admin = user.Admin;
+                    userdb.Status = user.Status;
+
+                    await _application.Put(user);
+                    return await _application.SaveChangesAsync()
+                        ? Ok(await _application.Get(user.Id))
+                        : BadRequest("Erro ao atualizar os dados!");
+
+                }
+                return BadRequest();
             }
             catch (Exception ex)
             {

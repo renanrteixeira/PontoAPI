@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-
 namespace PontoAPI.Core.Entities
 {
     public class TypeDate : BaseId

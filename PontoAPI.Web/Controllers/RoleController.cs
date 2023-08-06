@@ -17,7 +17,23 @@ namespace PontoAPI.Web.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpDelete()]
+        public async Task<ActionResult<List<Role>>> Delete(Role role)
+        {
+            try
+            {
+                _application.Delete(role);
+                return await _application.SaveChangesAsync()
+                   ? Ok(await _application.Get())
+                   : BadRequest("Erro ao deletar a área!");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet()]
         public async Task<ActionResult<List<Role>>> Get()
         {
             try
@@ -51,11 +67,12 @@ namespace PontoAPI.Web.Controllers
                 {
                     return NotFound("Role not found.");
                 }
+
                 return Ok(roleViewModel);
             }
-            catch (Exception ex)
+            catch
             {
-                return BadRequest("Role not found. Error: " + ex.Message);
+                return BadRequest();
             }
         }
 
@@ -91,7 +108,7 @@ namespace PontoAPI.Web.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut()]
         public async Task<ActionResult<Role>> Put(Role role)
         {
             try

@@ -93,7 +93,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult<List<Company>>> Put(Company company)
+        public async Task<ActionResult<Company>> Put(Company company)
         {
             try
             {
