@@ -17,7 +17,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.hours.Remove(hour);
+                _dataContext.Hours.Remove(hour);
             }
             catch
             {
@@ -29,7 +29,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.hours.ToListAsync();
+                return await _dataContext.Hours.ToListAsync();
             }
             catch
             {
@@ -41,7 +41,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.hours.Where(x => x.Id == id).FirstOrDefaultAsync();
+                return await _dataContext.Hours.Where(x => x.Id == id).FirstOrDefaultAsync();
             }
             catch
             {
@@ -53,7 +53,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.hours.Add(hour);
+                _dataContext.Hours.Add(hour);
             }
             catch
             {
@@ -65,7 +65,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.hours.Update(hour);
+                _dataContext.Hours.Update(hour);
             }
             catch
             {

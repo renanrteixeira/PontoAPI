@@ -18,7 +18,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.roles.Remove(role);
+                _dataContext.Roles.Remove(role);
             }
             catch
             {
@@ -30,7 +30,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.roles.ToListAsync();
+                return await _dataContext.Roles.ToListAsync();
             }
             catch
             {
@@ -42,7 +42,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.roles.Where(x => x.Id == id).FirstOrDefaultAsync();
+                return await _dataContext.Roles.Where(x => x.Id == id).FirstOrDefaultAsync();
             }
             catch
             {
@@ -54,7 +54,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.roles.Add(role);
+                _dataContext.Roles.Add(role);
             }
             catch
             {
@@ -66,7 +66,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.roles.Update(role);
+                _dataContext.Roles.Update(role);
             }
             catch
             {

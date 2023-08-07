@@ -17,22 +17,6 @@ namespace PontoAPI.Web.Controllers
             _mapper = mapper;
         }
 
-        [HttpDelete()]
-        public async Task<ActionResult<List<TypeDate>>> Delete(TypeDate typeDate)
-        {
-            try
-            {
-                _application.Delete(typeDate);
-                return await _application.SaveChangesAsync()
-                   ? Ok(Get())
-                   : BadRequest("Erro ao deletar o tipo de data!");
-            }
-            catch
-            {
-                return BadRequest();
-            }
-        }
-
         [HttpGet()]
         public async Task<ActionResult<List<TypeDate>>> Get()
         {
@@ -85,7 +69,7 @@ namespace PontoAPI.Web.Controllers
                 _application.Post(typeDate);
                 return await _application.SaveChangesAsync()
                     ? Ok(Get())
-                    : BadRequest("Erro ao inserir o tipo de data!");
+                    : BadRequest("Erro ao salvar o tipo de data!");
             }
             catch
             {
@@ -112,6 +96,22 @@ namespace PontoAPI.Web.Controllers
 
                 }
                 return BadRequest("TypeDate not found");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete()]
+        public async Task<ActionResult<List<TypeDate>>> Delete(TypeDate typeDate)
+        {
+            try
+            {
+                _application.Delete(typeDate);
+                return await _application.SaveChangesAsync()
+                   ? Ok(Get())
+                   : BadRequest("Erro ao deletar o tipo de data!");
             }
             catch
             {

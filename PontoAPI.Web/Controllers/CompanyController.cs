@@ -60,22 +60,6 @@ namespace PontoAPI.Web.Controllers
             }
         }
 
-        [HttpDelete()]
-        public async Task<ActionResult<List<Company>>> Delete(Company company)
-        {
-            try
-            {
-                _application.Delete(company);
-                return await _application.SaveChangesAsync() ?
-                    Ok(Get()) :
-                    BadRequest("Erro ao deletar a empresa!");
-            }
-            catch
-            {
-                return BadRequest();
-            }
-        }
-
         [HttpPost()]
         public async Task<ActionResult<List<Company>>> Post(Company company)
         {
@@ -84,11 +68,11 @@ namespace PontoAPI.Web.Controllers
                 _application.Post(company);
                 return await _application.SaveChangesAsync() ?
                     Ok(Get()) :
-                    BadRequest("Erro ao inserir a empresa!");
+                    BadRequest("Erro ao salvar a empresa!");
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -111,6 +95,22 @@ namespace PontoAPI.Web.Controllers
 
                 }
                 return BadRequest("Company not found");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete()]
+        public async Task<ActionResult<List<Company>>> Delete(Company company)
+        {
+            try
+            {
+                _application.Delete(company);
+                return await _application.SaveChangesAsync() ?
+                    Ok(Get()) :
+                    BadRequest("Erro ao deletar a empresa!");
             }
             catch
             {
