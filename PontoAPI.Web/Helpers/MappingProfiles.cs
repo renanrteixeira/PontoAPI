@@ -13,6 +13,7 @@ namespace PontoAPI.Web.Helpers
             CreateMap<Role, RoleViewModel>().ReverseMap();
             CreateMap<TypeDate, TypeDateViewModel>().ReverseMap();
             CreateMap<User, UserViewModel>().ReverseMap();
+            CreateMap<Hour, HourViewModel>().ReverseMap();
         }
     }
 }

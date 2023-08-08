@@ -68,17 +68,17 @@ namespace PontoAPI.Infrastructure.Application
                 var hourdb = await _dataContext.Get(hour.Id);
                 if (hourdb != null)
                 {
-                    hourdb.Employeefk = hour.Employeefk;
+                    hourdb.Employee = hour.Employee;
                     hourdb.Date = hour.Date;
                     hourdb.Type = hour.Type;
-                    hourdb.TypeDatefk = hour.TypeDatefk;
+                    hourdb.TypeDate = hour.TypeDate;
                     hourdb.Hour1 = hour.Hour1;
                     hourdb.Hour2 = hour.Hour2;
                     hourdb.Hour3 = hour.Hour3;
                     hourdb.Hour4 = hour.Hour4;
                     hourdb.Hour5 = hour.Hour5;
                     hourdb.Hour6 = hour.Hour6;
-                    hourdb.balance = (hour.Hour2 - hour.Hour1) + (hour.Hour4 - hour.Hour3) + (hour.Hour6 - hour.Hour5);
+                    hourdb.Balance = (hour.Hour2 - hour.Hour1) + (hour.Hour4 - hour.Hour3) + (hour.Hour6 - hour.Hour5);
 
                     _dataContext.Put(hourdb);
 

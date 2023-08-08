@@ -17,7 +17,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.typedates.Remove(typeDate);
+                _dataContext.Typedates.Remove(typeDate);
             }
             catch
             {
@@ -29,7 +29,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.typedates.ToListAsync();
+                return await _dataContext.Typedates.ToListAsync();
             }
             catch
             {
@@ -41,7 +41,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.typedates.Where(x => x.Id == id).FirstOrDefaultAsync();
+                return await _dataContext.Typedates.Where(x => x.Id == id).FirstOrDefaultAsync();
             }
             catch
             {
@@ -53,7 +53,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.typedates.Add(typeDate);
+                _dataContext.Typedates.Add(typeDate);
             }
             catch
             {
@@ -65,7 +65,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.typedates.Update(typeDate);
+                _dataContext.Typedates.Update(typeDate);
             }
             catch
             {

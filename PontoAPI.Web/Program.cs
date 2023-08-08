@@ -11,12 +11,14 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySql(connectionString,
+        ServerVersion.AutoDetect(connectionString));
     //options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
@@ -59,9 +61,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
-//app.UseAuthorization();
+app.UseAuthorization();
 
 app.MapControllers();
 

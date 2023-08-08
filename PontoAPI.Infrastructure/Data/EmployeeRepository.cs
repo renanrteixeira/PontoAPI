@@ -17,7 +17,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.employees.Remove(employee);
+                _dataContext.Employees.Remove(employee);
             }
             catch
             {
@@ -29,7 +29,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.employees.ToListAsync();
+                return await _dataContext.Employees.ToListAsync();
             }
             catch
             {
@@ -41,7 +41,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.employees.Where(x => x.Id == id).FirstOrDefaultAsync();
+                return await _dataContext.Employees.Where(x => x.Id == id).FirstOrDefaultAsync();
             }
             catch
             {
@@ -53,7 +53,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.employees.Add(employee);
+                _dataContext.Employees.Add(employee);
             }
             catch
             {
@@ -65,7 +65,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.employees.Update(employee);
+                _dataContext.Employees.Update(employee);
             }
             catch
             {

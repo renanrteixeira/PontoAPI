@@ -66,7 +66,7 @@ namespace PontoAPI.Web.Controllers
                 _application.Post(user);
                 return await _application.SaveChangesAsync()
                     ? Ok(Get())
-                    : BadRequest("Erro ao inserir o usuário!");
+                    : BadRequest("Erro ao salvar o usuário!");
             }
             catch
             {

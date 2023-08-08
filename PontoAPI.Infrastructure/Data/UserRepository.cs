@@ -17,7 +17,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.users.Remove(user);
+                _dataContext.Users.Remove(user);
             }
             catch
             {
@@ -29,7 +29,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.users.ToListAsync();
+                return await _dataContext.Users.ToListAsync();
             }
             catch
             {
@@ -41,7 +41,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.users.Where(x => x.Id == id).FirstOrDefaultAsync();
+                return await _dataContext.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
             }
             catch
             {
@@ -53,7 +53,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.users.Add(user);
+                _dataContext.Users.Add(user);
             }
             catch
             {
@@ -65,7 +65,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.users.Update(user);
+                _dataContext.Users.Update(user);
             }
             catch
             {
