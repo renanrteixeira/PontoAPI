@@ -17,24 +17,8 @@ namespace PontoAPI.Web.Controllers
             _mapper = mapper;
         }
 
-        [HttpDelete()]
-        public async Task<ActionResult<List<Employee>>> Delete(Employee employee)
-        {
-            try
-            {
-                _application.Delete(employee);
-                return await _application.SaveChangesAsync()
-                   ? Ok(Get())
-                   : BadRequest("Erro ao deletar o colaborador!");
-            }
-            catch
-            {
-                return BadRequest();
-            }
-        }
-
         [HttpGet()]
-        public async Task<ActionResult<List<Employee>>> Get()
+        public async Task<ActionResult<List<EmployeeViewModel>>> Get()
         {
             try
             {
@@ -55,7 +39,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Employee>>> Get(int id)
+        public async Task<ActionResult<List<EmployeeViewModel>>> Get(int id)
         {
             try
             {
@@ -84,7 +68,7 @@ namespace PontoAPI.Web.Controllers
                 _application.Post(employee);
                 return await _application.SaveChangesAsync()
                     ? Ok(Get())
-                    : BadRequest("Erro ao inserir a funcionário!");
+                    : BadRequest("Erro ao salvar a funcionário!");
             }
             catch
             {
@@ -114,6 +98,22 @@ namespace PontoAPI.Web.Controllers
 
                 }
                 return BadRequest("Employe not found");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete()]
+        public async Task<ActionResult<List<Employee>>> Delete(Employee employee)
+        {
+            try
+            {
+                _application.Delete(employee);
+                return await _application.SaveChangesAsync()
+                   ? Ok(Get())
+                   : BadRequest("Erro ao deletar o colaborador!");
             }
             catch
             {

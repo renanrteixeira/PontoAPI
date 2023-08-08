@@ -18,7 +18,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.companies.Remove(company);
+                _dataContext.Companies.Remove(company);
             }
             catch
             {
@@ -30,7 +30,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.companies.ToListAsync();
+                return await _dataContext.Companies.ToListAsync();
             }
             catch
             {
@@ -43,7 +43,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.companies.Where(x => x.Id == id).FirstOrDefaultAsync();
+                return await _dataContext.Companies.Where(x => x.Id == id).FirstOrDefaultAsync();
             }
             catch
             {
@@ -55,7 +55,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.companies.Add(company);
+                _dataContext.Companies.Add(company);
             }
             catch
             {
@@ -67,7 +67,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                _dataContext.companies.Update(company);
+                _dataContext.Companies.Update(company);
             }
             catch
             {

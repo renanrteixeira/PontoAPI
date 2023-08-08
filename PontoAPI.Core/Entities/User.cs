@@ -5,11 +5,11 @@ namespace PontoAPI.Core.Entities
     public class User : BaseId
     {
         [Required, StringLength(50)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [Required, StringLength(255)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [Required, StringLength(255)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
         [Required, StringLength(1)]
         public char Admin { get; set; }
         [Required, StringLength(1)]
