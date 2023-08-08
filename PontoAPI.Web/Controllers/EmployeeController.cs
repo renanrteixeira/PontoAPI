@@ -18,7 +18,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<List<Employee>>> Get()
+        public async Task<ActionResult<List<EmployeeViewModel>>> Get()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Employee>>> Get(int id)
+        public async Task<ActionResult<List<EmployeeViewModel>>> Get(int id)
         {
             try
             {
