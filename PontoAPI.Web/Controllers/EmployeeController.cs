@@ -61,10 +61,11 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<List<Employee>>> Post(Employee employee)
+        public async Task<ActionResult<List<EmployeeViewModel>>> Post(EmployeeViewModel employeeViewModel)
         {
             try
             {
+                var employee = _mapper.Map<EmployeeViewModel, Employee>(employeeViewModel);
                 _application.Post(employee);
                 return await _application.SaveChangesAsync()
                     ? Ok(Get())
@@ -77,7 +78,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult<Employee>> Put(Employee employee)
+        public async Task<ActionResult<EmployeeViewModel>> Put(Employee employee)
         {
             try
             {
@@ -106,7 +107,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpDelete()]
-        public async Task<ActionResult<List<Employee>>> Delete(Employee employee)
+        public async Task<ActionResult<List<EmployeeViewModel>>> Delete(Employee employee)
         {
             try
             {

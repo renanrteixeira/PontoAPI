@@ -18,7 +18,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Company>>> Get()
+        public async Task<ActionResult<List<CompanyViewModel>>> Get()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Company>> Get(int id)
+        public async Task<ActionResult<CompanyViewModel>> Get(int id)
         {
             try
             {
@@ -61,10 +61,11 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<List<Company>>> Post(Company company)
+        public async Task<ActionResult<List<CompanyViewModel>>> Post(CompanyViewModel companyViewModel)
         {
             try
             {
+                var company = _mapper.Map<CompanyViewModel, Company>(companyViewModel);
                 _application.Post(company);
                 return await _application.SaveChangesAsync() ?
                     Ok(Get()) :
@@ -77,20 +78,20 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult<Company>> Put(Company company)
+        public async Task<ActionResult<CompanyViewModel>> Put(CompanyViewModel companyViewModel)
         {
             try
             {
-                var companydb = await _application.Get(company.Id);
+                var companydb = await _application.Get(companyViewModel.Id);
                 if (companydb != null)
                 {
-                    companydb.Name = company.Name;
-                    companydb.Address = company.Address;
-                    companydb.Telephone = company.Telephone;
+                    companydb.Name = companyViewModel.Name;
+                    companydb.Address = companyViewModel.Address;
+                    companydb.Telephone = companyViewModel.Telephone;
 
                     await _application.Put(companydb);
                     return await _application.SaveChangesAsync()
-                        ? Ok(Get(company.Id))
+                        ? Ok(Get(companyViewModel.Id))
                         : BadRequest("Erro ao atualizar os dados!");
 
                 }
@@ -103,10 +104,11 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpDelete()]
-        public async Task<ActionResult<List<Company>>> Delete(Company company)
+        public async Task<ActionResult<List<CompanyViewModel>>> Delete(CompanyViewModel companyViewModel)
         {
             try
             {
+                var company = _mapper.Map<CompanyViewModel, Company>(companyViewModel);
                 _application.Delete(company);
                 return await _application.SaveChangesAsync() ?
                     Ok(Get()) :

@@ -7,6 +7,9 @@ using PontoAPI.Infrastructure.Application;
 using PontoAPI.Core.Interface;
 using PontoAPI.Web.Helpers;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +36,8 @@ builder.Services.AddScoped<IRepository<Role>, RoleRepository>();
 builder.Services.AddScoped<IRepository<TypeDate>, TypeDateRepository>();
 builder.Services.AddScoped<IRepository<User>, UserRepository>();
 
+builder.Services.AddScoped<ITokenRepository<User>, TokenRepository>();
+
 //regras
 builder.Services.AddScoped<IApplication<Company>, CompanyApplication>();
 builder.Services.AddScoped<IApplication<Employee>, EmployeeApplication>();
@@ -41,16 +46,32 @@ builder.Services.AddScoped<IApplication<Role>, RoleApplication>();
 builder.Services.AddScoped<IApplication<TypeDate>, TypeDateApplication>();
 builder.Services.AddScoped<IApplication<User>, UserApplication>();
 
+builder.Services.AddScoped<ITokenApplication<User>, TokenApplication>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-/*builder.Services.AddAuthentication(x =>
+
+
+var key = Encoding.ASCII.GetBytes(Secret.SecretKey);
+builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-});*/
+}).AddJwtBearer(x =>
+    {
+        x.RequireHttpsMetadata = false;
+        x.SaveToken = true;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    }); ;
 
 var app = builder.Build();
 

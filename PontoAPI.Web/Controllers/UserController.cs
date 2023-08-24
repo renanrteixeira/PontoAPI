@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PontoAPI.Core.Entities;
 using PontoAPI.Core.Interface;
@@ -18,7 +19,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<User>>> Get()
+        public async Task<ActionResult<List<UserViewModel>>> Get()
         {
             try
             {
@@ -37,7 +38,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Get(int id)
+        public async Task<ActionResult<UserViewModel>> Get(int id)
         {
             try
             {
@@ -87,6 +88,7 @@ namespace PontoAPI.Web.Controllers
                     userdb.Password = user.Password;
                     userdb.Admin = user.Admin;
                     userdb.Status = user.Status;
+                    userdb.UserName = user.UserName;
 
                     await _application.Put(user);
                     return await _application.SaveChangesAsync()
