@@ -15,29 +15,32 @@ namespace PontoAPI.Web.Controllers
             _application = application;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<dynamic>> Authenticate([FromBody] TokenViewModel user)
+        [HttpPost()]
+        public async Task<ActionResult<Token>> Authenticate(TokenViewModel token)
         {
 
-            var userDb = await _application.GetUser(user.UserName, user.Password);
+            var userDb = await _application.GetUser(token.UserName, token.Password);
+
 
             if (userDb == null)
             {
-                return NotFound("Role not found.");
+                return NotFound("User not found.");
             }
 
             // Gera o Token
-            var token = TokenApplication.GenerateToken(userDb);
+            var _token = TokenApplication.GenerateToken(userDb);
 
             // Oculta a senha
             userDb.Password = "";
 
-            // Retorna os dados
-            return new
+            var tokenReturn = new Token
             {
-                user = userDb,
-                token = token
+                UserName = userDb.UserName,
+                _Token = _token
             };
+
+            // Retorna os dados
+            return Ok(tokenReturn);
         }
     }
 }
