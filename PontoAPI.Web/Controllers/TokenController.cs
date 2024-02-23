@@ -26,7 +26,11 @@ namespace PontoAPI.Web.Controllers
 
             if (userDb == null)
             {
-                return NotFound("User not found.");
+                var result = new Token
+                {
+                    _Token = ""
+                };
+                return NotFound(JsonSerializer.Serialize(result));
             }
 
             // Gera o Token
@@ -37,7 +41,6 @@ namespace PontoAPI.Web.Controllers
 
             var tokenReturn = new Token
             {
-                UserName = userDb.UserName,
                 _Token = _token
             };
 

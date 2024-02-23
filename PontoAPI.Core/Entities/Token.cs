@@ -1,8 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace PontoAPI.Core.Entities
 {
     public class Token
     {
-        public string? UserName { get; set; }
-        public string? _Token { get; set; }
+        public string _Token { get; set; }
     }
 }
