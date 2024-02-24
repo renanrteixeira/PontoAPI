@@ -18,7 +18,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<List<TypeDate>>> Get()
+        public async Task<ActionResult<List<TypeDateViewModel>>> Get()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<TypeDate>>> Get(int id)
+        public async Task<ActionResult<List<TypeDateViewModel>>> Get(int id)
         {
             try
             {

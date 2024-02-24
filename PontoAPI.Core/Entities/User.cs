@@ -9,6 +9,8 @@ namespace PontoAPI.Core.Entities
         [Required, StringLength(255)]
         public string? Email { get; set; }
         [Required, StringLength(255)]
+        public string? UserName { get; set; }
+        [Required, StringLength(255)]
         public string? Password { get; set; }
         [Required, StringLength(1)]
         public char Admin { get; set; }
