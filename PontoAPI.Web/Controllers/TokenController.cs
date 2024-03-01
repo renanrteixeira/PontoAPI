@@ -25,7 +25,6 @@ namespace PontoAPI.Web.Controllers
 
             var userDb = await _application.GetUser(token.UserName, token.Password);
 
-
             if (userDb == null)
             {
                 var result = new Token

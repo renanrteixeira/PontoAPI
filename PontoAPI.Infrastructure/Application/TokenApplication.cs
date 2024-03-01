@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using PontoAPI.Core.Interface;
 using PontoAPI.Core.Entities;
+using PontoAPI.Core.Helper;
 
 namespace PontoAPI.Infrastructure.Application
 {
@@ -35,7 +36,8 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
-                return await _dataContext.GetUser(userName, password);
+                var hashPassword = Hash.GerarHash(password);
+                return await _dataContext.GetUser(userName, hashPassword);
             }
             catch
             {
