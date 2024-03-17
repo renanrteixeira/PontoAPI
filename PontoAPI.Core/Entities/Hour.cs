@@ -7,14 +7,12 @@ namespace PontoAPI.Core.Entities
     {
         [Required]
         public int EmployeeId { get; set; }
-        public Employee? Employee { get; set; }
         [Required]
         public DateOnly Date { get; set; }
         [Required]
         public TypeHour Type { get; set; }  //Gerar enumerable
         [Required]
         public int TypeDateId { get; set; }
-        public TypeDate? TypeDate { get; set; }
         [Required]
         public TimeSpan Hour1 { get; set; }
         [Required]
@@ -29,5 +27,8 @@ namespace PontoAPI.Core.Entities
         public TimeSpan Hour6 { get; set; }
         [Required]
         public TimeSpan Balance { get; set; }
+
+        public TypeDate? TypeDate { get; set; }
+        public Employee? Employee { get; set; }
     }
 }
