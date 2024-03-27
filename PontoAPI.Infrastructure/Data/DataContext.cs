@@ -26,12 +26,15 @@ namespace PontoAPI.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json")
-                .Build();
-            var connection = configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseMySql(connection, ServerVersion.AutoDetect(connection));
+            if (!optionsBuilder.IsConfigured)
+            {
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+                var connection = configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseMySql(connection, ServerVersion.AutoDetect(connection));
+            }
             base.OnConfiguring(optionsBuilder);
         }
 
