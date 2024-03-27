@@ -1,3 +1,5 @@
 {
-  "dotnet.defaultSolution": "PontoAPI.sln"
+  "dotnet.defaultSolution": "PontoAPI.sln",
+  "editor.fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
+  "editor.fontLigatures": true
 }

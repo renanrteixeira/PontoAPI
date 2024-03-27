@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PontoAPI.Core.Entities;
 using PontoAPI.Core.Interface;
@@ -18,7 +18,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<List<Role>>> Get()
+        public async Task<ActionResult<List<RoleViewModel>>> Get()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Role>> Get(int id)
+        public async Task<ActionResult<RoleViewModel>> Get(int id)
         {
             try
             {
@@ -61,10 +61,11 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Role>> Post(Role role)
+        public async Task<ActionResult<RoleViewModel>> Post(RoleViewModel roleViewModel)
         {
             try
             {
+                var role = _mapper.Map<RoleViewModel, Role>(roleViewModel);
                 _application.Post(role);
                 return await _application.SaveChangesAsync() ?
                     Ok(Get()) :
@@ -77,18 +78,18 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult<Role>> Put(Role role)
+        public async Task<ActionResult<RoleViewModel>> Put(RoleViewModel roleViewModel)
         {
             try
             {
-                var roledb = await _application.Get(role.Id);
+                var roledb = await _application.Get(roleViewModel.Id);
                 if (roledb != null)
                 {
-                    roledb.Name = role.Name;
+                    roledb.Name = roleViewModel.Name;
 
                     await _application.Put(roledb);
                     return await _application.SaveChangesAsync()
-                        ? Ok(Get(roledb.Id))
+                        ? Ok(Get(roleViewModel.Id))
                         : BadRequest("Erro ao atualizar os dados!");
 
                 }
@@ -101,10 +102,11 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpDelete()]
-        public async Task<ActionResult<List<Role>>> Delete(Role role)
+        public async Task<ActionResult<List<RoleViewModel>>> Delete(RoleViewModel roleViewModel)
         {
             try
             {
+                var role = _mapper.Map<RoleViewModel, Role>(roleViewModel);
                 _application.Delete(role);
                 return await _application.SaveChangesAsync()
                    ? Ok(Get())
