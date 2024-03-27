@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PontoAPI.Core.Entities;
 using PontoAPI.Core.Interface;

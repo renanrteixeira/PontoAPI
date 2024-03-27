@@ -1,5 +1,6 @@
 using System.Text.Json;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PontoAPI.Core.Entities;
 using PontoAPI.Core.Interface;
@@ -18,17 +19,17 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPost()]
+        [AllowAnonymous]
         public async Task<ActionResult<Token>> Authenticate([FromBody] TokenViewModel token)
         {
 
             var userDb = await _application.GetUser(token.UserName, token.Password);
 
-
             if (userDb == null)
             {
                 var result = new Token
                 {
-                    _Token = ""
+                    jwt = ""
                 };
                 return NotFound(JsonSerializer.Serialize(result));
             }
@@ -41,7 +42,7 @@ namespace PontoAPI.Web.Controllers
 
             var tokenReturn = new Token
             {
-                _Token = _token
+                jwt = _token
             };
 
             // Retorna os dados

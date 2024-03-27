@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace PontoAPI.Core.Entities
 {
-    public class Token
+    public class BaseGuid
     {
-        public string jwt { get; set; }
+        public Guid Guid = new Guid();
     }
 }

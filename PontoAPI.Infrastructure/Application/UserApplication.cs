@@ -1,5 +1,6 @@
 using PontoAPI.Core.Interface;
 using PontoAPI.Core.Entities;
+using PontoAPI.Core.Helper;
 
 namespace PontoAPI.Infrastructure.Application
 {
@@ -53,6 +54,7 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
+                user.Password = Hash.GerarHash(user.Password);
                 _dataContext.Post(user);
             }
             catch
@@ -65,7 +67,7 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
-
+                user.Password = Hash.GerarHash(user.Password);
                 _dataContext.Put(user);
 
                 return await _dataContext.Get(user.Id);

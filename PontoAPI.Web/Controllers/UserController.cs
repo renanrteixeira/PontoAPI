@@ -1,7 +1,9 @@
+using System.Threading;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PontoAPI.Core.Entities;
+using PontoAPI.Core.Helper;
 using PontoAPI.Core.Interface;
 using PontoAPI.Web.ViewModel;
 
@@ -63,7 +65,7 @@ namespace PontoAPI.Web.Controllers
         public async Task<ActionResult<List<User>>> Post(User user)
         {
             try
-            {
+            {             
                 _application.Post(user);
                 return await _application.SaveChangesAsync()
                     ? Ok(Get())
@@ -90,9 +92,9 @@ namespace PontoAPI.Web.Controllers
                     userdb.Status = user.Status;
                     userdb.UserName = user.UserName;
 
-                    await _application.Put(user);
+                    await _application.Put(userdb);
                     return await _application.SaveChangesAsync()
-                        ? Ok(Get(user.Id))
+                        ? Ok(Get(userdb.Id))
                         : BadRequest("Erro ao atualizar os dados!");
 
                 }
