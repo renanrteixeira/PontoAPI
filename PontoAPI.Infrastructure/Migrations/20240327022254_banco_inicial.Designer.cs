@@ -11,7 +11,7 @@ using PontoAPI.Infrastructure.Data;
 namespace PontoAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240327015142_banco_inicial")]
+    [Migration("20240327022254_banco_inicial")]
     partial class bancoinicial
     {
         /// <inheritdoc />
