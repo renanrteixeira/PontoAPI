@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PontoAPI.Core.Entities;
 using PontoAPI.Infrastructure.Mappings;
