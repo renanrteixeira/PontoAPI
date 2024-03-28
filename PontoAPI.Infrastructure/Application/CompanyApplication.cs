@@ -49,6 +49,11 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
+        public Task<Company> Get(string value)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Post(Company company)
         {
             try

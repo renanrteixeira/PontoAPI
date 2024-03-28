@@ -8,10 +8,10 @@ namespace PontoAPI.Web.Controllers
 {
     public class HourController : DefaultControllerBase
     {
-        private readonly IApplication<Hour> _application;
+        private readonly IApplicationGuid<Hour> _application;
         private readonly IMapper _mapper;
 
-        public HourController(IApplication<Hour> application, IMapper mapper)
+        public HourController(IApplicationGuid<Hour> application, IMapper mapper)
         {
             _application = application;
             _mapper = mapper;
@@ -37,11 +37,11 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<HourViewModel>> Get(int id)
+        public async Task<ActionResult<HourViewModel>> Get(Guid guid)
         {
             try
             {
-                var hour = await _application.Get(id);
+                var hour = await _application.Get(guid);
                 var hourViewModel = _mapper.Map<Hour, HourViewModel>(hour);
                 if (hourViewModel == null)
                 {
@@ -76,7 +76,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                var hourdb = await _application.Get(hour.Id);
+                var hourdb = await _application.Get(hour.Guid);
                 if (hourdb != null)
                 {
                     hourdb.Employee = hour.Employee;
@@ -92,7 +92,7 @@ namespace PontoAPI.Web.Controllers
 
                     await _application.Put(hour);
                     return await _application.SaveChangesAsync()
-                        ? Ok(Get(hour.Id))
+                        ? Ok(Get(hour.Guid))
                         : BadRequest("Erro ao atualizar os dados!");
 
                 }

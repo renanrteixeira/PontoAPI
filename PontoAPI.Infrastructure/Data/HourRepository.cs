@@ -4,7 +4,7 @@ using PontoAPI.Core.Interface;
 
 namespace PontoAPI.Infrastructure.Data
 {
-    public class HourRepository : IRepository<Hour>
+    public class HourRepository : IRepositoryGuid<Hour>
     {
         private readonly DataContext _dataContext;
 
@@ -37,11 +37,11 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
-        public async Task<Hour> Get(int id)
+        public async Task<Hour> Get(Guid guid)
         {
             try
             {
-                return await _dataContext.Hours.Where(x => x.Id == id).FirstOrDefaultAsync();
+                return await _dataContext.Hours.Where(x => x.Guid == guid).FirstOrDefaultAsync();
             }
             catch
             {

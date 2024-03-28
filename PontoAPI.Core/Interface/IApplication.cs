@@ -6,6 +6,8 @@ namespace PontoAPI.Core.Interface
 
         Task<T> Get(int id);
 
+        Task<T> Get(string value);
+
         void Post(T entidade);
 
         Task<T> Put(T entidade);

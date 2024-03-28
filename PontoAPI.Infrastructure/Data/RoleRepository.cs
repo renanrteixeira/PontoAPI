@@ -50,6 +50,11 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
+        public Task<Role> Get(string value)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Post(Role role)
         {
             try

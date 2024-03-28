@@ -23,6 +23,15 @@ namespace PontoAPI.Web.Controllers
         public async Task<ActionResult<Token>> Authenticate([FromBody] TokenViewModel token)
         {
 
+            if (token.UserName == null || token.Password == null)
+            {
+                var result = new Token
+                {
+                    jwt = ""
+                };
+                return BadRequest(JsonSerializer.Serialize(result));
+            }
+
             var userDb = await _application.GetUser(token.UserName, token.Password);
 
             if (userDb == null)

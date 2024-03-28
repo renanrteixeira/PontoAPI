@@ -49,6 +49,11 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
+        public Task<TypeDate> Get(string value)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Post(TypeDate typeDate)
         {
             try

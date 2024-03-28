@@ -24,7 +24,7 @@ namespace PontoAPI.Infrastructure.Mappings
 
             builder.HasMany(p => p.Hours)
                    .WithOne(p => p.Employee)
-                   .HasForeignKey(p => p.Id)
+                   .HasForeignKey(p => p.Guid)
                    .IsRequired();
 
             builder.Property(p => p.Id)
