@@ -51,6 +51,14 @@ namespace PontoAPI.Infrastructure.Mappings
                             .IsRequired()
                             .HasColumnType("char")
                             .HasMaxLength(1);
+                     builder.Property(p => p.RoleId)
+                            .HasColumnName("roleId")
+                            .IsRequired()
+                            .HasColumnType("int");
+                     builder.Property(p => p.CompanyId)
+                            .HasColumnName("companyId")
+                            .IsRequired()
+                            .HasColumnType("int");
               }
        }
 }
