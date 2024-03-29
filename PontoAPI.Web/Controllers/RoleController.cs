@@ -17,6 +17,20 @@ namespace PontoAPI.Web.Controllers
             _mapper = mapper;
         }
 
+        private async Task<List<RoleViewModel>> RetornarListaRole()
+        {
+            var role = await _application.Get();
+            var roleViewModel = _mapper.Map<List<Role>, List<RoleViewModel>>((List<Role>)role);
+            return roleViewModel;
+        }
+
+        private async Task<RoleViewModel> RetornarRole(int id)
+        {
+            var role = await _application.Get(id);
+            var roleViewModel = _mapper.Map<Role, RoleViewModel>(role);
+            return roleViewModel;
+        }
+
         [HttpGet()]
         public async Task<ActionResult<List<RoleViewModel>>> Get()
         {
@@ -28,7 +42,7 @@ namespace PontoAPI.Web.Controllers
 
                 if (roleViewModel.Count == 0)
                 {
-                    return NotFound("Role not found.");
+                    return NotFound("Role not found!");
                 }
                 return Ok(roleViewModel);
             }
@@ -49,7 +63,7 @@ namespace PontoAPI.Web.Controllers
 
                 if (roleViewModel == null)
                 {
-                    return NotFound("Role not found.");
+                    return NotFound("Role not found!");
                 }
 
                 return Ok(roleViewModel);
@@ -61,15 +75,22 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RoleViewModel>> Post(RoleViewModel roleViewModel)
+        public async Task<ActionResult<RoleViewModel>> Post(Role role)
         {
             try
             {
-                var role = _mapper.Map<RoleViewModel, Role>(roleViewModel);
+                
                 _application.Post(role);
-                return await _application.SaveChangesAsync() ?
-                    Ok(Get()) :
-                    BadRequest("Erro ao inserir o cargo!");
+
+                var result = await _application.SaveChangesAsync();
+
+                if (result)
+                {
+                    var listaRole = await RetornarListaRole(); 
+                    return Ok(listaRole);
+                };
+
+                return BadRequest("Erro ao inserir os dados!");
             }
             catch
             {
@@ -78,22 +99,28 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult<RoleViewModel>> Put(RoleViewModel roleViewModel)
+        public async Task<ActionResult<RoleViewModel>> Put(Role role)
         {
             try
             {
-                var roledb = await _application.Get(roleViewModel.Id);
+                var roledb = await _application.Get(role.Id);
                 if (roledb != null)
                 {
-                    roledb.Name = roleViewModel.Name;
+                    roledb.Name = role.Name;
 
                     await _application.Put(roledb);
-                    return await _application.SaveChangesAsync()
-                        ? Ok(Get(roleViewModel.Id))
-                        : BadRequest("Erro ao atualizar os dados!");
 
+                    var result = await _application.SaveChangesAsync();
+
+                    if (result)
+                    {
+                        var roleViewModel = await RetornarRole(role.Id);
+                        return Ok(roleViewModel);
+                    }
+
+                    return BadRequest("Erro ao atualizar os dados!");
                 }
-                return BadRequest("Role not found");
+                return BadRequest("Role not found!");
             }
             catch (Exception ex)
             {
@@ -102,15 +129,21 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpDelete()]
-        public async Task<ActionResult<List<RoleViewModel>>> Delete(RoleViewModel roleViewModel)
+        public async Task<ActionResult<List<RoleViewModel>>> Delete(Role role)
         {
             try
             {
-                var role = _mapper.Map<RoleViewModel, Role>(roleViewModel);
                 _application.Delete(role);
-                return await _application.SaveChangesAsync()
-                   ? Ok(Get())
-                   : BadRequest("Erro ao deletar a área!");
+
+                var result = await _application.SaveChangesAsync();
+
+                if (result)
+                {
+                    var roleViewModel = await RetornarListaRole();
+                    return Ok(roleViewModel);
+                }
+
+                return BadRequest("Erro ao deletar a área!");
             }
             catch
             {
