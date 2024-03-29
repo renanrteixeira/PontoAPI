@@ -20,14 +20,14 @@ namespace PontoAPI.Web.Controllers
             _mapper = mapper;
         }
 
-        public async Task<List<UserViewModel>> RetornarListaUsuario()
+        private async Task<List<UserViewModel>> RetornarListaUser()
         {
             var users = await _application.Get();
             var userViewModel = _mapper.Map<List<User>, List<UserViewModel>>((List<User>)users);
             return userViewModel;
         }
 
-        public async Task<UserViewModel> RetornarUsuario(int id)
+        private async Task<UserViewModel> RetornarUser(int id)
         {
             var user = await _application.Get(id);
             var userViewModel = _mapper.Map<User, UserViewModel>(user);
@@ -39,7 +39,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                var userViewModel = await RetornarListaUsuario();
+                var userViewModel = await RetornarListaUser();
                 if (userViewModel == null)
                 {
                     return NotFound("Users not found.");
@@ -57,7 +57,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                var userViewModel = await RetornarUsuario(id);
+                var userViewModel = await RetornarUser(id);
                 if (userViewModel == null)
                 {
                     return NotFound("User not found.");
@@ -86,7 +86,7 @@ namespace PontoAPI.Web.Controllers
                 
                 var result = await _application.SaveChangesAsync();
                 if (result){
-                    var userViewModel = await RetornarListaUsuario();
+                    var userViewModel = await RetornarListaUser();
                     return Ok(userViewModel);
                 }
 
@@ -117,7 +117,7 @@ namespace PontoAPI.Web.Controllers
                     
                     var result = await _application.SaveChangesAsync();
                     if (result){
-                        var userViewModel = await RetornarUsuario(user.Id);
+                        var userViewModel = await RetornarUser(user.Id);
                         return Ok(userViewModel);
                     }
 
@@ -140,7 +140,7 @@ namespace PontoAPI.Web.Controllers
 
                 var result = await _application.SaveChangesAsync();
                 if (result){
-                    var userViewModel = await RetornarListaUsuario();
+                    var userViewModel = await RetornarListaUser();
                     return Ok(userViewModel);
                 }
 
