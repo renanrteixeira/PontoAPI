@@ -23,8 +23,8 @@ namespace PontoAPI.Web.Controllers
         private async Task<List<UserViewModel>> RetornarListaUser()
         {
             var users = await _application.Get();
-            var userViewModel = _mapper.Map<List<User>, List<UserViewModel>>((List<User>)users);
-            return userViewModel;
+            var usersViewModel = _mapper.Map<List<User>, List<UserViewModel>>((List<User>)users);
+            return usersViewModel;
         }
 
         private async Task<UserViewModel> RetornarUser(int id)
@@ -75,7 +75,7 @@ namespace PontoAPI.Web.Controllers
         public async Task<ActionResult<List<UserViewModel>>> Post(User user)
         {
             try
-            {        
+            {
                 if (user.UserName == null) return BadRequest("Dados não enviados!");
 
                 var userDb = await _application.Get(user.UserName);
@@ -83,9 +83,10 @@ namespace PontoAPI.Web.Controllers
                 if (userDb != null) return BadRequest("Usuário já cadastrado!");
 
                 _application.Post(user);
-                
+
                 var result = await _application.SaveChangesAsync();
-                if (result){
+                if (result)
+                {
                     var userViewModel = await RetornarListaUser();
                     return Ok(userViewModel);
                 }
@@ -114,9 +115,10 @@ namespace PontoAPI.Web.Controllers
                     userdb.UserName = user.UserName;
 
                     await _application.Put(userdb);
-                    
+
                     var result = await _application.SaveChangesAsync();
-                    if (result){
+                    if (result)
+                    {
                         var userViewModel = await RetornarUser(user.Id);
                         return Ok(userViewModel);
                     }
@@ -139,12 +141,13 @@ namespace PontoAPI.Web.Controllers
                 _application.Delete(user);
 
                 var result = await _application.SaveChangesAsync();
-                if (result){
+                if (result)
+                {
                     var userViewModel = await RetornarListaUser();
                     return Ok(userViewModel);
                 }
 
-                return BadRequest("Erro ao deletar o usuário!");                
+                return BadRequest("Erro ao deletar o usuário!");
             }
             catch (Exception ex)
             {

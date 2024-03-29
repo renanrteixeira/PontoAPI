@@ -17,18 +17,40 @@ namespace PontoAPI.Web.Controllers
             _mapper = mapper;
         }
 
+        private async Task<List<HourViewModel>> RetornarListaHour()
+        {
+            var hours = await _application.Get();
+            var hoursViewModel = _mapper.Map<List<Hour>, List<HourViewModel>>((List<Hour>)hours);
+            return hoursViewModel;
+        }
+
+        private async Task<List<HourViewModel>> RetornarListaHour(int employeeId)
+        {
+            var hours = await _application.Get();
+            var hoursFilter = hours.ToList();
+            var hoursFilter_ = hoursFilter.Where(p => p.EmployeeId == employeeId);
+            var hoursViewModel = _mapper.Map<List<Hour>, List<HourViewModel>>((List<Hour>)hoursFilter);
+            return hoursViewModel;
+        }
+
+        private async Task<HourViewModel> RetornarHour(Guid guid)
+        {
+            var hour = await _application.Get(guid);
+            var hourViewModel = _mapper.Map<Hour, HourViewModel>(hour);
+            return hourViewModel;
+        }
+
         [HttpGet]
-        public async Task<ActionResult<List<Hour>>> Get()
+        public async Task<ActionResult<List<HourViewModel>>> Get()
         {
             try
             {
-                var hour = await _application.Get();
-                var hourViewModel = _mapper.Map<List<Hour>, List<HourViewModel>>((List<Hour>)hour);
-                if (hourViewModel.Count == 0)
+                var hoursViewModel = await RetornarListaHour();
+                if (hoursViewModel.Count == 0)
                 {
                     return NotFound("Hour not foud.");
                 }
-                return Ok(hourViewModel);
+                return Ok(hoursViewModel);
             }
             catch (Exception ex)
             {
@@ -41,8 +63,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                var hour = await _application.Get(guid);
-                var hourViewModel = _mapper.Map<Hour, HourViewModel>(hour);
+                var hourViewModel = await RetornarHour(guid);
                 if (hourViewModel == null)
                 {
                     return NotFound("Hour not foud.");
@@ -56,14 +77,19 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Hour>> Post(Hour hour)
+        public async Task<ActionResult<List<HourViewModel>>> Post(Hour hour)
         {
             try
             {
                 _application.Post(hour);
-                return await _application.SaveChangesAsync() ?
-                        Ok(Get()) :
-                        BadRequest("Erro ao salvar a hora!");
+
+                var result = await _application.SaveChangesAsync();
+                if (result)
+                {
+                    var hours = await RetornarListaHour(hour.EmployeeId);
+                    return Ok(hours);
+                }
+                return BadRequest("Erro ao salvar a hora!");
             }
             catch (Exception ex)
             {
@@ -72,11 +98,11 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Hour>> Put(Hour hour)
+        public async Task<ActionResult<HourViewModel>> Put(Hour hour)
         {
             try
             {
-                var hourdb = await _application.Get(hour.Guid);
+                var hourdb = await _application.Get(hour.Id);
                 if (hourdb != null)
                 {
                     hourdb.Employee = hour.Employee;
@@ -90,13 +116,17 @@ namespace PontoAPI.Web.Controllers
                     hourdb.Hour5 = hour.Hour5;
                     hourdb.Hour6 = hour.Hour6;
 
-                    await _application.Put(hour);
-                    return await _application.SaveChangesAsync()
-                        ? Ok(Get(hour.Guid))
-                        : BadRequest("Erro ao atualizar os dados!");
+                    await _application.Put(hourdb);
 
+                    var result = await _application.SaveChangesAsync();
+                    if (result)
+                    {
+                        var hourViewModel_ = await RetornarHour(hourdb.Id);
+                        return Ok(hourViewModel_);
+                    }
+                    return BadRequest("Erro ao atualizar os dados!");
                 }
-                return BadRequest();
+                return BadRequest("Hora não encontrada.");
             }
             catch (Exception ex)
             {
@@ -105,14 +135,20 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete(Hour hour)
+        public async Task<ActionResult<List<HourViewModel>>> Delete(Hour hour)
         {
             try
             {
                 _application.Delete(hour);
-                return await _application.SaveChangesAsync() ?
-                        Ok(Get()) :
-                        BadRequest("Erro ao deletar a hora!");
+
+                var result = await _application.SaveChangesAsync();
+                if (result)
+                {
+                    var hours = await RetornarListaHour(hour.EmployeeId);
+                    return Ok(hours);
+                }
+
+                return BadRequest("Erro ao deletar a hora!");
             }
             catch (Exception ex)
             {

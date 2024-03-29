@@ -19,9 +19,9 @@ namespace PontoAPI.Web.Controllers
 
         private async Task<List<TypeDateViewModel>> RetornarListaTypeDate()
         {
-            var typeDate = await _application.Get();
-            var typeDateViewModel = _mapper.Map<List<TypeDate>, List<TypeDateViewModel>>((List<TypeDate>)typeDate);
-            return typeDateViewModel;
+            var typeDates = await _application.Get();
+            var typeDatesViewModel = _mapper.Map<List<TypeDate>, List<TypeDateViewModel>>((List<TypeDate>)typeDates);
+            return typeDatesViewModel;
         }
 
         private async Task<TypeDateViewModel> RetornarTypeDate(int id)
@@ -36,9 +36,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                var typeDate = await _application.Get();
-
-                var typeDateViewModel = _mapper.Map<List<TypeDate>, List<TypeDateViewModel>>((List<TypeDate>)typeDate);
+                var typeDateViewModel = await RetornarListaTypeDate();
 
                 if (typeDateViewModel.Count == 0)
                 {
@@ -58,9 +56,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                var typeDate = await _application.Get(id);
-
-                var typeDateViewModel = _mapper.Map<TypeDate, TypeDateViewModel>(typeDate);
+                var typeDateViewModel = await RetornarTypeDate(id);
 
                 if (typeDateViewModel == null)
                 {
@@ -76,11 +72,13 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<List<TypeDate>>> Post(TypeDate typeDate)
+        public async Task<ActionResult<List<TypeDateViewModel>>> Post(TypeDateViewModel typeDate)
         {
             try
             {
-                _application.Post(typeDate);
+                var type_ = _mapper.Map<TypeDateViewModel, TypeDate>(typeDate);
+
+                _application.Post(type_);
 
                 var result = await _application.SaveChangesAsync();
 
@@ -99,7 +97,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult<TypeDate>> Put(TypeDate typeDate)
+        public async Task<ActionResult<TypeDateViewModel>> Put(TypeDateViewModel typeDate)
         {
             try
             {
@@ -119,7 +117,7 @@ namespace PontoAPI.Web.Controllers
                         var typeDateViewModel = await RetornarTypeDate(typeDate.Id);
                         return Ok(typeDateViewModel);
                     };
-                    
+
                     return BadRequest("Erro ao atualizar os dados!");
 
                 }
@@ -132,17 +130,18 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpDelete()]
-        public async Task<ActionResult<List<TypeDate>>> Delete(TypeDate typeDate)
+        public async Task<ActionResult<List<TypeDateViewModel>>> Delete(TypeDateViewModel typeDate)
         {
             try
             {
-                _application.Delete(typeDate);
+                var type_ = _mapper.Map<TypeDateViewModel, TypeDate>(typeDate);
+                _application.Delete(type_);
 
                 var result = await _application.SaveChangesAsync();
 
                 if (result)
                 {
-                    
+
                     var typeDateViewModel = await RetornarListaTypeDate();
                     return Ok(typeDateViewModel);
                 }

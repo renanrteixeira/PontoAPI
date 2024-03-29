@@ -9,7 +9,7 @@ namespace PontoAPI.Core.Interface
     {
         Task<IEnumerable<T>> Get();
 
-        Task<T> Get(Guid guid);
+        Task<T> Get(Guid value);
 
         void Post(T entidade);
 

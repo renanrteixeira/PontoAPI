@@ -17,14 +17,26 @@ namespace PontoAPI.Web.Controllers
             _application = application;
         }
 
+        private async Task<List<CompanyViewModel>> RetornarListaCompany()
+        {
+            var companies = await _application.Get();
+            var companiesViewModel = _mapper.Map<List<Company>, List<CompanyViewModel>>((List<Company>)companies);
+            return companiesViewModel;
+        }
+
+        private async Task<CompanyViewModel> RetornarCompany(int id)
+        {
+            var company = await _application.Get(id);
+            var companyViewModel = _mapper.Map<Company, CompanyViewModel>(company);
+            return companyViewModel;
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<CompanyViewModel>>> Get()
         {
             try
             {
-                var company = await _application.Get();
-
-                var companyViewModel = _mapper.Map<List<Company>, List<CompanyViewModel>>((List<Company>)company);
+                var companyViewModel = await RetornarListaCompany();
 
                 if (companyViewModel.Count == 0)
                 {
@@ -43,10 +55,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                var company = await _application.Get(id);
-
-                var companyViewModel = _mapper.Map<Company, CompanyViewModel>(company);
-
+                var companyViewModel = await RetornarCompany(id);
                 if (companyViewModel == null)
                 {
                     return NotFound("Company not found.");
@@ -66,10 +75,18 @@ namespace PontoAPI.Web.Controllers
             try
             {
                 var company = _mapper.Map<CompanyViewModel, Company>(companyViewModel);
+
                 _application.Post(company);
-                return await _application.SaveChangesAsync() ?
-                    Ok(Get()) :
-                    BadRequest("Erro ao salvar a empresa!");
+
+                var result = await _application.SaveChangesAsync();
+
+                if (result)
+                {
+                    var companyViewModel_ = await RetornarListaCompany();
+                    return Ok(companyViewModel_);
+                }
+
+                return BadRequest("Erro ao salvar a empresa!");
             }
             catch (Exception ex)
             {
@@ -90,9 +107,14 @@ namespace PontoAPI.Web.Controllers
                     companydb.Telephone = companyViewModel.Telephone;
 
                     await _application.Put(companydb);
-                    return await _application.SaveChangesAsync()
-                        ? Ok(Get(companyViewModel.Id))
-                        : BadRequest("Erro ao atualizar os dados!");
+                    var result = await _application.SaveChangesAsync();
+
+                    if (result)
+                    {
+                        var companyViewModel_ = await RetornarCompany(companyViewModel.Id);
+                        return Ok(companyViewModel_);
+                    };
+                    return BadRequest("Erro ao atualizar os dados!");
 
                 }
                 return BadRequest("Company not found");
@@ -110,9 +132,14 @@ namespace PontoAPI.Web.Controllers
             {
                 var company = _mapper.Map<CompanyViewModel, Company>(companyViewModel);
                 _application.Delete(company);
-                return await _application.SaveChangesAsync() ?
-                    Ok(Get()) :
-                    BadRequest("Erro ao deletar a empresa!");
+                var result = await _application.SaveChangesAsync();
+
+                if (result)
+                {
+                    var companyViewModel_ = await RetornarListaCompany();
+                    return Ok(companyViewModel_);
+                }
+                return BadRequest("Erro ao deletar a empresa!");
             }
             catch
             {

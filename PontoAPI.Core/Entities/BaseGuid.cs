@@ -7,6 +7,6 @@ namespace PontoAPI.Core.Entities
 {
     public class BaseGuid
     {
-        public Guid Guid = new Guid();
+        public Guid Id { get; set; }
     }
 }
