@@ -17,16 +17,28 @@ namespace PontoAPI.Web.Controllers
             _mapper = mapper;
         }
 
+        private async Task<List<EmployeeViewModel>> RetornarListaEmployee()
+        {
+            var employee = await _application.Get();
+            var employeeViewModel = _mapper.Map<List<Employee>, List<EmployeeViewModel>>((List<Employee>)employee);
+            return employeeViewModel;
+        }
+
+        private async Task<EmployeeViewModel> RetornarEmployee(int id)
+        {
+            var employee = await _application.Get(id);
+            var employeeViewModel = _mapper.Map<Employee, EmployeeViewModel>(employee);
+            return employeeViewModel;
+        }
+
         [HttpGet()]
         public async Task<ActionResult<List<EmployeeViewModel>>> Get()
         {
             try
             {
-                var employee = await _application.Get();
+                var employeeViewModel = await RetornarListaEmployee();
 
-                var employeeViewModel = _mapper.Map<List<Employee>, List<EmployeeViewModel>>((List<Employee>)employee);
-
-                if (employeeViewModel.Count == 0)
+                if (employeeViewModel.Count > 0)
                 {
                     return Ok(employeeViewModel);
                 }
@@ -43,9 +55,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                var employee = await _application.Get(id);
-
-                var employeeViewModel = _mapper.Map<Employee, EmployeeViewModel>(employee);
+                var employeeViewModel = await RetornarEmployee(id);
 
                 if (employeeViewModel == null)
                 {
@@ -67,13 +77,18 @@ namespace PontoAPI.Web.Controllers
             {
                 var employee = _mapper.Map<EmployeeViewModel, Employee>(employeeViewModel);
                 _application.Post(employee);
-                return await _application.SaveChangesAsync()
-                    ? Ok(Get())
-                    : BadRequest("Erro ao salvar a funcionário!");
+
+                var result = await _application.SaveChangesAsync();
+                if (result)
+                {
+                    var employeeViewModel_ = await RetornarListaEmployee();
+                    return Ok(employeeViewModel_);
+                }
+                return BadRequest("Erro ao salvar a funcionário!");
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 
@@ -93,9 +108,13 @@ namespace PontoAPI.Web.Controllers
                     employeedb.Company = employee.Company;
 
                     await _application.Put(employeedb);
-                    return await _application.SaveChangesAsync()
-                        ? Ok(Get(employee.Id))
-                        : BadRequest("Erro ao atualizar os dados!");
+                    var result = await _application.SaveChangesAsync();
+                    if (result)
+                    {
+                        var employee_ = await RetornarEmployee(employee.Id);
+                        return Ok(employee_);
+                    }
+                    return BadRequest("Erro ao atualizar os dados!");
 
                 }
                 return BadRequest("Employe not found");
@@ -112,9 +131,13 @@ namespace PontoAPI.Web.Controllers
             try
             {
                 _application.Delete(employee);
-                return await _application.SaveChangesAsync()
-                   ? Ok(Get())
-                   : BadRequest("Erro ao deletar o colaborador!");
+                var result = await _application.SaveChangesAsync();
+                if (result)
+                {
+                    var employee_ = await RetornarListaEmployee();
+                    return Ok(employee_);
+                };
+                return BadRequest("Erro ao deletar o colaborador!");
             }
             catch
             {
