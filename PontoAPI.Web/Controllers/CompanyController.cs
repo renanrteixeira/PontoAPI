@@ -112,7 +112,7 @@ namespace PontoAPI.Web.Controllers
                     if (result)
                     {
                         var companyViewModel_ = await RetornarCompany(companyViewModel.Id);
-                        return Ok();
+                        return Ok(companyViewModel_);
                     };
                     return BadRequest("Erro ao atualizar os dados!");
 
