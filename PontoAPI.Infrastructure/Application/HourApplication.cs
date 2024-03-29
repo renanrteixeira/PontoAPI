@@ -53,6 +53,9 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
+                hour.Id = new Guid();
+                hour.Balance = (hour.Hour2 - hour.Hour1) + (hour.Hour4 - hour.Hour3) + (hour.Hour6 - hour.Hour5);
+
                 _dataContext.Post(hour);
             }
             catch
@@ -65,7 +68,7 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
-                var hourdb = await _dataContext.Get(hour.Guid);
+                var hourdb = await _dataContext.Get(hour.Id);
                 if (hourdb != null)
                 {
                     hourdb.Employee = hour.Employee;
@@ -83,7 +86,7 @@ namespace PontoAPI.Infrastructure.Application
                     _dataContext.Put(hourdb);
 
                 }
-                return await _dataContext.Get(hour.Guid);
+                return await _dataContext.Get(hour.Id);
             }
             catch
             {

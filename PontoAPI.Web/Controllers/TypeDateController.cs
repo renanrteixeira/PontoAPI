@@ -19,9 +19,9 @@ namespace PontoAPI.Web.Controllers
 
         private async Task<List<TypeDateViewModel>> RetornarListaTypeDate()
         {
-            var typeDate = await _application.Get();
-            var typeDateViewModel = _mapper.Map<List<TypeDate>, List<TypeDateViewModel>>((List<TypeDate>)typeDate);
-            return typeDateViewModel;
+            var typeDates = await _application.Get();
+            var typeDatesViewModel = _mapper.Map<List<TypeDate>, List<TypeDateViewModel>>((List<TypeDate>)typeDates);
+            return typeDatesViewModel;
         }
 
         private async Task<TypeDateViewModel> RetornarTypeDate(int id)
@@ -117,7 +117,7 @@ namespace PontoAPI.Web.Controllers
                         var typeDateViewModel = await RetornarTypeDate(typeDate.Id);
                         return Ok(typeDateViewModel);
                     };
-                    
+
                     return BadRequest("Erro ao atualizar os dados!");
 
                 }
@@ -141,7 +141,7 @@ namespace PontoAPI.Web.Controllers
 
                 if (result)
                 {
-                    
+
                     var typeDateViewModel = await RetornarListaTypeDate();
                     return Ok(typeDateViewModel);
                 }

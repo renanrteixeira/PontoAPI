@@ -19,9 +19,9 @@ namespace PontoAPI.Web.Controllers
 
         private async Task<List<RoleViewModel>> RetornarListaRole()
         {
-            var role = await _application.Get();
-            var roleViewModel = _mapper.Map<List<Role>, List<RoleViewModel>>((List<Role>)role);
-            return roleViewModel;
+            var roles = await _application.Get();
+            var rolesViewModel = _mapper.Map<List<Role>, List<RoleViewModel>>((List<Role>)roles);
+            return rolesViewModel;
         }
 
         private async Task<RoleViewModel> RetornarRole(int id)
@@ -36,7 +36,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-               var roleViewModel = await RetornarListaRole();
+                var roleViewModel = await RetornarListaRole();
 
                 if (roleViewModel.Count == 0)
                 {
@@ -83,7 +83,7 @@ namespace PontoAPI.Web.Controllers
 
                 if (result)
                 {
-                    var listaRole = await RetornarListaRole(); 
+                    var listaRole = await RetornarListaRole();
                     return Ok(listaRole);
                 };
 

@@ -19,15 +19,15 @@ namespace PontoAPI.Web.Controllers
 
         private async Task<List<CompanyViewModel>> RetornarListaCompany()
         {
-            var company = await _application.Get();
-            var companyViewModel = _mapper.Map<List<Company>, List<CompanyViewModel>>((List<Company>)company);
-            return companyViewModel;
+            var companies = await _application.Get();
+            var companiesViewModel = _mapper.Map<List<Company>, List<CompanyViewModel>>((List<Company>)companies);
+            return companiesViewModel;
         }
 
         private async Task<CompanyViewModel> RetornarCompany(int id)
         {
-            var CompanyViewModel = await _application.Get(id);
-            var companyViewModel = _mapper.Map<Company, CompanyViewModel>(CompanyViewModel);
+            var company = await _application.Get(id);
+            var companyViewModel = _mapper.Map<Company, CompanyViewModel>(company);
             return companyViewModel;
         }
 

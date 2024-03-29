@@ -41,7 +41,7 @@ namespace PontoAPI.Infrastructure.Data
         {
             try
             {
-                return await _dataContext.Hours.Where(x => x.Guid == guid).FirstOrDefaultAsync();
+                return await _dataContext.Hours.Where(x => x.Id == guid).FirstOrDefaultAsync();
             }
             catch
             {

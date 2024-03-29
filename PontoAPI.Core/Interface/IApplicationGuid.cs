@@ -9,7 +9,7 @@ namespace PontoAPI.Core.Interface
     {
         Task<IEnumerable<T>> Get();
 
-        Task<T> Get(Guid guid);
+        Task<T> Get(Guid value);
 
         void Post(T entidade);
 
@@ -17,6 +17,6 @@ namespace PontoAPI.Core.Interface
 
         void Delete(T entidade);
 
-        Task<bool> SaveChangesAsync();        
+        Task<bool> SaveChangesAsync();
     }
 }

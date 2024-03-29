@@ -5,10 +5,11 @@ namespace PontoAPI.Web.ViewModel
 {
     public class HourViewModel
     {
-        public Employee? Employee { get; set; }
+        public Guid Id { get; set; }
+        public int EmployeeId { get; set; }
         public DateOnly Date { get; set; }
         public TypeHour Type { get; set; }
-        public TypeDate? TypeDate { get; set; }
+        public int TypeDateId { get; set; }
         public TimeSpan Hour1 { get; set; }
         public TimeSpan Hour2 { get; set; }
         public TimeSpan Hour3 { get; set; }
