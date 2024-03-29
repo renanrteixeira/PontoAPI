@@ -19,9 +19,9 @@ namespace PontoAPI.Web.Controllers
 
         private async Task<List<EmployeeViewModel>> RetornarListaEmployee()
         {
-            var employee = await _application.Get();
-            var employeeViewModel = _mapper.Map<List<Employee>, List<EmployeeViewModel>>((List<Employee>)employee);
-            return employeeViewModel;
+            var employees = await _application.Get();
+            var employeesViewModel = _mapper.Map<List<Employee>, List<EmployeeViewModel>>((List<Employee>)employees);
+            return employeesViewModel;
         }
 
         private async Task<EmployeeViewModel> RetornarEmployee(int id)
