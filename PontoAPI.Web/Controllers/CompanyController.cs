@@ -55,8 +55,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                var companyViewModel = RetornarCompany(id);
-
+                var companyViewModel = await RetornarCompany(id);
                 if (companyViewModel == null)
                 {
                     return NotFound("Company not found.");
@@ -112,7 +111,7 @@ namespace PontoAPI.Web.Controllers
 
                     if (result)
                     {
-                        var companyViewModel_ = RetornarCompany(companyViewModel.Id);
+                        var companyViewModel_ = await RetornarCompany(companyViewModel.Id);
                         return Ok();
                     };
                     return BadRequest("Erro ao atualizar os dados!");
@@ -137,8 +136,8 @@ namespace PontoAPI.Web.Controllers
 
                 if (result)
                 {
-                    var companyViewModel_ = RetornarListaCompany();
-                    return Ok();
+                    var companyViewModel_ = await RetornarListaCompany();
+                    return Ok(companyViewModel_);
                 }
                 return BadRequest("Erro ao deletar a empresa!");
             }
