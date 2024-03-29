@@ -50,6 +50,19 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
+        public async Task<User> Get(string username)
+        {
+            try
+            {
+                var user = await _dataContext.Get(username);
+                return user;
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public void Post(User user)
         {
             try

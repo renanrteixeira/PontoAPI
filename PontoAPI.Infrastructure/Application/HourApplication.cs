@@ -3,11 +3,11 @@ using PontoAPI.Core.Entities;
 
 namespace PontoAPI.Infrastructure.Application
 {
-    public class HourApplication : IApplication<Hour>
+    public class HourApplication : IApplicationGuid<Hour>
     {
-        private readonly IRepository<Hour> _dataContext;
+        private readonly IRepositoryGuid<Hour> _dataContext;
 
-        public HourApplication(IRepository<Hour> dataContext)
+        public HourApplication(IRepositoryGuid<Hour> dataContext)
         {
             _dataContext = dataContext;
         }
@@ -36,11 +36,11 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public async Task<Hour> Get(int id)
+        public async Task<Hour> Get(Guid guid)
         {
             try
             {
-                var hour = await _dataContext.Get(id);
+                var hour = await _dataContext.Get(guid);
                 return hour;
             }
             catch
@@ -65,7 +65,7 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
-                var hourdb = await _dataContext.Get(hour.Id);
+                var hourdb = await _dataContext.Get(hour.Guid);
                 if (hourdb != null)
                 {
                     hourdb.Employee = hour.Employee;
@@ -83,7 +83,7 @@ namespace PontoAPI.Infrastructure.Application
                     _dataContext.Put(hourdb);
 
                 }
-                return await _dataContext.Get(hour.Id);
+                return await _dataContext.Get(hour.Guid);
             }
             catch
             {

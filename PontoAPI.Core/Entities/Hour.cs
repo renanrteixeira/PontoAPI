@@ -3,7 +3,7 @@ using PontoAPI.Core.Entities.Enum;
 
 namespace PontoAPI.Core.Entities
 {
-    public class Hour : BaseId
+    public class Hour : BaseGuid
     {
         public int EmployeeId { get; set; }
         public DateOnly Date { get; set; }

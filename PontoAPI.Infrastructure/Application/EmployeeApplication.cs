@@ -50,6 +50,11 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
+        public Task<Employee> Get(string value)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Post(Employee employee)
         {
             try

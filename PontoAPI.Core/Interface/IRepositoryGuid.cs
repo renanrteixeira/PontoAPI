@@ -1,13 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace PontoAPI.Core.Interface
 {
-    public interface IRepository<T>
+    public interface IRepositoryGuid<T>
     {
-
         Task<IEnumerable<T>> Get();
 
-        Task<T> Get(int id);
-
-        Task<T> Get(string value);
+        Task<T> Get(Guid guid);
 
         void Post(T entidade);
 
@@ -16,6 +18,5 @@ namespace PontoAPI.Core.Interface
         void Delete(T entidade);
 
         Task<bool> SaveChangesAsync();
-
     }
 }

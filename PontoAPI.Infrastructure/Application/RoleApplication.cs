@@ -85,5 +85,9 @@ namespace PontoAPI.Infrastructure.Application
             return await _dataContext.SaveChangesAsync();
         }
 
+        public Task<Role> Get(string value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace PontoAPI.Infrastructure.Mappings
         {
             builder.ToTable("hours");
 
-            builder.HasKey(p => p.Id);
+            builder.HasKey(p => p.Guid);
             
             builder.HasOne(p => p.Employee)
                    .WithMany(p => p.Hours)
@@ -20,7 +20,7 @@ namespace PontoAPI.Infrastructure.Mappings
                    .WithMany(p => p.Hours)
                    .HasForeignKey(p => p.TypeDateId);
 
-            builder.Property(p => p.Id)
+            builder.Property(p => p.Guid)
                    .HasColumnName("id")
                    .IsRequired()
                    .HasColumnType("varchar")
