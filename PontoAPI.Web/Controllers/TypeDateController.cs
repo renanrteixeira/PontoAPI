@@ -17,6 +17,20 @@ namespace PontoAPI.Web.Controllers
             _mapper = mapper;
         }
 
+        private async Task<List<TypeDateViewModel>> RetornarListaTypeDate()
+        {
+            var typeDate = await _application.Get();
+            var typeDateViewModel = _mapper.Map<List<TypeDate>, List<TypeDateViewModel>>((List<TypeDate>)typeDate);
+            return typeDateViewModel;
+        }
+
+        private async Task<TypeDateViewModel> RetornarTypeDate(int id)
+        {
+            var typeDate = await _application.Get(id);
+            var typeDateViewModel = _mapper.Map<TypeDate, TypeDateViewModel>(typeDate);
+            return typeDateViewModel;
+        }
+
         [HttpGet()]
         public async Task<ActionResult<List<TypeDateViewModel>>> Get()
         {
@@ -67,9 +81,16 @@ namespace PontoAPI.Web.Controllers
             try
             {
                 _application.Post(typeDate);
-                return await _application.SaveChangesAsync()
-                    ? Ok(Get())
-                    : BadRequest("Erro ao salvar o tipo de data!");
+
+                var result = await _application.SaveChangesAsync();
+
+                if (result)
+                {
+                    var typeDateViewModel = await RetornarListaTypeDate();
+                    return Ok(typeDateViewModel);
+                }
+
+                return BadRequest("Erro ao salvar o tipo de data!");
             }
             catch
             {
@@ -90,9 +111,16 @@ namespace PontoAPI.Web.Controllers
                     typeDatedb.Weekend = typeDate.Weekend;
 
                     await _application.Put(typeDatedb);
-                    return await _application.SaveChangesAsync()
-                        ? Ok(Get(typeDate.Id))
-                        : BadRequest("Erro ao atualizar os dados!");
+
+                    var result = await _application.SaveChangesAsync();
+
+                    if (result)
+                    {
+                        var typeDateViewModel = await RetornarTypeDate(typeDate.Id);
+                        return Ok(typeDateViewModel);
+                    };
+                    
+                    return BadRequest("Erro ao atualizar os dados!");
 
                 }
                 return BadRequest("TypeDate not found");
@@ -109,9 +137,16 @@ namespace PontoAPI.Web.Controllers
             try
             {
                 _application.Delete(typeDate);
-                return await _application.SaveChangesAsync()
-                   ? Ok(Get())
-                   : BadRequest("Erro ao deletar o tipo de data!");
+
+                var result = await _application.SaveChangesAsync();
+
+                if (result)
+                {
+                    
+                    var typeDateViewModel = await RetornarListaTypeDate();
+                    return Ok(typeDateViewModel);
+                }
+                return BadRequest("Erro ao deletar o tipo de data!");
             }
             catch
             {
