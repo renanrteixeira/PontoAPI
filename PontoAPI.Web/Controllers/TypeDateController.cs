@@ -24,7 +24,7 @@ namespace PontoAPI.Web.Controllers
             return typeDatesViewModel;
         }
 
-        private async Task<TypeDateViewModel> RetornarTypeDate(int id)
+        private async Task<TypeDateViewModel> RetornarTypeDate(Guid id)
         {
             var typeDate = await _application.Get(id);
             var typeDateViewModel = _mapper.Map<TypeDate, TypeDateViewModel>(typeDate);
@@ -52,7 +52,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<TypeDateViewModel>>> Get(int id)
+        public async Task<ActionResult<List<TypeDateViewModel>>> Get(Guid id)
         {
             try
             {

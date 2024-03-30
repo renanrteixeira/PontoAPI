@@ -3,12 +3,12 @@ using PontoAPI.Core.Entities.Enum;
 
 namespace PontoAPI.Core.Entities
 {
-    public class Hour : BaseGuid
+    public class Hour : BaseId
     {
-        public int EmployeeId { get; set; }
+        public Guid EmployeeId { get; set; }
         public DateOnly Date { get; set; }
         public TypeHour Type { get; set; }  //Gerar enumerable
-        public int TypeDateId { get; set; }
+        public Guid TypeDateId { get; set; }
         public TimeSpan Hour1 { get; set; }
         public TimeSpan Hour2 { get; set; }
         public TimeSpan Hour3 { get; set; }

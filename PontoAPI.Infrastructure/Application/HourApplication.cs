@@ -3,11 +3,11 @@ using PontoAPI.Core.Entities;
 
 namespace PontoAPI.Infrastructure.Application
 {
-    public class HourApplication : IApplicationGuid<Hour>
+    public class HourApplication : IApplication<Hour>
     {
-        private readonly IRepositoryGuid<Hour> _dataContext;
+        private readonly IRepository<Hour> _dataContext;
 
-        public HourApplication(IRepositoryGuid<Hour> dataContext)
+        public HourApplication(IRepository<Hour> dataContext)
         {
             _dataContext = dataContext;
         }
@@ -47,6 +47,11 @@ namespace PontoAPI.Infrastructure.Application
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public Task<Hour> Get(string value)
+        {
+            throw new NotImplementedException();
         }
 
         public void Post(Hour hour)

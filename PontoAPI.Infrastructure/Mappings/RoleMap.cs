@@ -19,8 +19,8 @@ namespace PontoAPI.Infrastructure.Mappings
             builder.Property(p => p.Id)
                    .HasColumnName("id")
                    .IsRequired()
-                   .HasColumnType("int")
-                   .ValueGeneratedOnAdd();
+                   .HasColumnType("varchar")
+                   .HasMaxLength(100);
             builder.Property(p => p.Name)
                    .HasColumnName("name")
                    .IsRequired()

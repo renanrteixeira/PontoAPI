@@ -4,7 +4,7 @@ using PontoAPI.Core.Interface;
 
 namespace PontoAPI.Infrastructure.Data
 {
-    public class HourRepository : IRepositoryGuid<Hour>
+    public class HourRepository : IRepository<Hour>
     {
         private readonly DataContext _dataContext;
 
@@ -47,6 +47,11 @@ namespace PontoAPI.Infrastructure.Data
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public Task<Hour> Get(string value)
+        {
+            throw new NotImplementedException();
         }
 
         public void Post(Hour hour)

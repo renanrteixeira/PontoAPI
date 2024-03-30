@@ -37,7 +37,7 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
-        public async Task<TypeDate> Get(int id)
+        public async Task<TypeDate> Get(Guid id)
         {
             try
             {

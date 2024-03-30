@@ -24,7 +24,7 @@ namespace PontoAPI.Web.Controllers
             return companiesViewModel;
         }
 
-        private async Task<CompanyViewModel> RetornarCompany(int id)
+        private async Task<CompanyViewModel> RetornarCompany(Guid id)
         {
             var company = await _application.Get(id);
             var companyViewModel = _mapper.Map<Company, CompanyViewModel>(company);
@@ -51,7 +51,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CompanyViewModel>> Get(int id)
+        public async Task<ActionResult<CompanyViewModel>> Get(Guid id)
         {
             try
             {

@@ -37,7 +37,7 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public async Task<User> Get(int id)
+        public async Task<User> Get(Guid id)
         {
             try
             {
@@ -67,6 +67,7 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
+                user.Id = new Guid();
                 user.Password = Hash.GerarHash(user.Password);
                 _dataContext.Post(user);
             }
