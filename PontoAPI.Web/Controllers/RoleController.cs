@@ -24,7 +24,7 @@ namespace PontoAPI.Web.Controllers
             return rolesViewModel;
         }
 
-        private async Task<RoleViewModel> RetornarRole(int id)
+        private async Task<RoleViewModel> RetornarRole(Guid id)
         {
             var role = await _application.Get(id);
             var roleViewModel = _mapper.Map<Role, RoleViewModel>(role);
@@ -51,7 +51,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RoleViewModel>> Get(int id)
+        public async Task<ActionResult<RoleViewModel>> Get(Guid id)
         {
             try
             {

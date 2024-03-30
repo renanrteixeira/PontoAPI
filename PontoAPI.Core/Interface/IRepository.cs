@@ -5,7 +5,7 @@ namespace PontoAPI.Core.Interface
 
         Task<IEnumerable<T>> Get();
 
-        Task<T> Get(int id);
+        Task<T> Get(Guid id);
 
         Task<T> Get(string value);
 

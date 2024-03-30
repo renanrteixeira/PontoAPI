@@ -37,7 +37,7 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public async Task<Employee> Get(int id)
+        public async Task<Employee> Get(Guid id)
         {
             try
             {
@@ -59,6 +59,7 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
+                employee.Id = new Guid();
                 _dataContext.Post(employee);
             }
             catch

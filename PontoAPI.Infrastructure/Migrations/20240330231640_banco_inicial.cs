@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -19,8 +18,8 @@ namespace PontoAPI.Infrastructure.Migrations
                 name: "companies",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    id = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     name = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     address = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false)
@@ -38,8 +37,8 @@ namespace PontoAPI.Infrastructure.Migrations
                 name: "roles",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    id = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
@@ -53,8 +52,8 @@ namespace PontoAPI.Infrastructure.Migrations
                 name: "typedates",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    id = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     time = table.Column<TimeSpan>(type: "time", nullable: false),
@@ -71,8 +70,8 @@ namespace PontoAPI.Infrastructure.Migrations
                 name: "users",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    id = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     email = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false)
@@ -96,8 +95,8 @@ namespace PontoAPI.Infrastructure.Migrations
                 name: "employees",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    id = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     admission = table.Column<DateOnly>(type: "date", nullable: false),
@@ -105,21 +104,23 @@ namespace PontoAPI.Infrastructure.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     status = table.Column<string>(type: "char(1)", maxLength: 1, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: false)
+                    roleId = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    companyId = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_employees", x => x.id);
                     table.ForeignKey(
-                        name: "FK_employees_companies_CompanyId",
-                        column: x => x.CompanyId,
+                        name: "FK_employees_companies_companyId",
+                        column: x => x.companyId,
                         principalTable: "companies",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_employees_roles_RoleId",
-                        column: x => x.RoleId,
+                        name: "FK_employees_roles_roleId",
+                        column: x => x.roleId,
                         principalTable: "roles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -132,10 +133,12 @@ namespace PontoAPI.Infrastructure.Migrations
                 {
                     id = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    employeeId = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     date = table.Column<DateOnly>(type: "date", nullable: false),
                     type = table.Column<int>(type: "int", nullable: false),
-                    TypeDateId = table.Column<int>(type: "int", nullable: false),
+                    typeDateId = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     hour1 = table.Column<TimeSpan>(type: "time", nullable: false),
                     hour2 = table.Column<TimeSpan>(type: "time", nullable: false),
                     hour3 = table.Column<TimeSpan>(type: "time", nullable: false),
@@ -148,14 +151,14 @@ namespace PontoAPI.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_hours", x => x.id);
                     table.ForeignKey(
-                        name: "FK_hours_employees_EmployeeId",
-                        column: x => x.EmployeeId,
+                        name: "FK_hours_employees_employeeId",
+                        column: x => x.employeeId,
                         principalTable: "employees",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_hours_typedates_TypeDateId",
-                        column: x => x.TypeDateId,
+                        name: "FK_hours_typedates_typeDateId",
+                        column: x => x.typeDateId,
                         principalTable: "typedates",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -163,24 +166,24 @@ namespace PontoAPI.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_employees_CompanyId",
+                name: "IX_employees_companyId",
                 table: "employees",
-                column: "CompanyId");
+                column: "companyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_employees_RoleId",
+                name: "IX_employees_roleId",
                 table: "employees",
-                column: "RoleId");
+                column: "roleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_hours_EmployeeId",
+                name: "IX_hours_employeeId",
                 table: "hours",
-                column: "EmployeeId");
+                column: "employeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_hours_TypeDateId",
+                name: "IX_hours_typeDateId",
                 table: "hours",
-                column: "TypeDateId");
+                column: "typeDateId");
         }
 
         /// <inheritdoc />

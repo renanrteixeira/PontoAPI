@@ -27,7 +27,7 @@ namespace PontoAPI.Web.Controllers
             return usersViewModel;
         }
 
-        private async Task<UserViewModel> RetornarUser(int id)
+        private async Task<UserViewModel> RetornarUser(Guid id)
         {
             var user = await _application.Get(id);
             var userViewModel = _mapper.Map<User, UserViewModel>(user);
@@ -53,7 +53,7 @@ namespace PontoAPI.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserViewModel>> Get(int id)
+        public async Task<ActionResult<UserViewModel>> Get(Guid id)
         {
             try
             {
