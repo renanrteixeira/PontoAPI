@@ -7,6 +7,6 @@ namespace PontoAPI.Core.Entities
 {
     public class Token
     {
-        public string jwt { get; set; }
+        public string? Jwt { get; set; }
     }
 }

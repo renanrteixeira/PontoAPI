@@ -78,11 +78,7 @@ namespace PontoAPI.Web.Controllers
             {
                 if (user.UserName == null) return BadRequest("Dados não enviados!");
 
-                var userDb = await _application.Get(user.UserName);
-
-                if (userDb != null) return BadRequest("Usuário já cadastrado!");
-
-                _application.Post(user);
+                _ = _application.Post(user);
 
                 var result = await _application.SaveChangesAsync();
                 if (result)
@@ -93,9 +89,9 @@ namespace PontoAPI.Web.Controllers
 
                 return BadRequest("Erro ao salvar o usuário!");
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest("Error : " + e.Message);
             }
         }
 
@@ -129,7 +125,7 @@ namespace PontoAPI.Web.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Usuário não encontrado. Error: " + ex.Message);
+                return BadRequest("Error: " + ex.Message);
             }
         }
 

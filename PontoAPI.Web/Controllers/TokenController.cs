@@ -27,7 +27,7 @@ namespace PontoAPI.Web.Controllers
             {
                 var result = new Token
                 {
-                    jwt = ""
+                    Jwt = ""
                 };
                 return BadRequest(JsonSerializer.Serialize(result));
             }
@@ -38,7 +38,7 @@ namespace PontoAPI.Web.Controllers
             {
                 var result = new Token
                 {
-                    jwt = ""
+                    Jwt = ""
                 };
                 return NotFound(JsonSerializer.Serialize(result));
             }
@@ -51,7 +51,7 @@ namespace PontoAPI.Web.Controllers
 
             var tokenReturn = new Token
             {
-                jwt = _token
+                Jwt = _token
             };
 
             // Retorna os dados

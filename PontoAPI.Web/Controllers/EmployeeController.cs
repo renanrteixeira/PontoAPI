@@ -76,7 +76,7 @@ namespace PontoAPI.Web.Controllers
             try
             {
                 var employee = _mapper.Map<EmployeeViewModel, Employee>(employeeViewModel);
-                _application.Post(employee);
+                _ = _application.Post(employee);
 
                 var result = await _application.SaveChangesAsync();
                 if (result)
