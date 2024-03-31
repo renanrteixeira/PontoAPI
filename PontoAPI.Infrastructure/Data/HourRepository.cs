@@ -49,11 +49,6 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
-        public Task<Hour> Get(string value)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Post(Hour hour)
         {
             try

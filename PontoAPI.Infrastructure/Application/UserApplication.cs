@@ -50,32 +50,22 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public async Task<User> Get(string username)
-        {
-            try
-            {
-                var user = await _dataContext.Get(username);
-                return user;
-            }
-            catch
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public async Task<User> Post(User user)
         {
             try
             {
+                var userDb = _dataContext.Query().Where(p => p.UserName == user.UserName);
+                if (userDb != null) throw new Exception("Usuário já cadastrado!");
+
                 user.Id = new Guid();
                 user.Password = Hash.GerarHash(user.Password);
                 _dataContext.Post(user);
 
                 return await _dataContext.Get(user.Id);
             }
-            catch
+            catch (Exception e)
             {
-                throw new NotImplementedException();
+                throw new Exception(e.Message);
             }
         }
 

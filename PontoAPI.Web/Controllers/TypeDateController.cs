@@ -78,7 +78,7 @@ namespace PontoAPI.Web.Controllers
             {
                 var type_ = _mapper.Map<TypeDateViewModel, TypeDate>(typeDate);
 
-                _application.Post(type_);
+                _ = await _application.Post(type_);
 
                 var result = await _application.SaveChangesAsync();
 

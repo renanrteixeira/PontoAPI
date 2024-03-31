@@ -49,18 +49,6 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
-        public async Task<User> Get(string username)
-        {
-            try
-            {
-                return await _dataContext.Users.Where(x => x.UserName == username).FirstOrDefaultAsync();
-            }
-            catch
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public void Post(User user)
         {
             try
