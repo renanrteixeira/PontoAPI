@@ -81,7 +81,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                await _application.Post(hour);
+                _ = await _application.Post(hour);
 
                 var result = await _application.SaveChangesAsync();
                 if (result)
