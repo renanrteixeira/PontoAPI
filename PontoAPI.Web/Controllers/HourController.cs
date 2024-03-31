@@ -24,12 +24,10 @@ namespace PontoAPI.Web.Controllers
             return hoursViewModel;
         }
 
-        private async Task<List<HourViewModel>> RetornarListaHour(Guid employeeId)
+        private List<HourViewModel> RetornarListaHour(Guid employeeId)
         {
-            var hours = await _application.Get();
-            var hoursFilter = hours.ToList();
-            var hoursFilter_ = hoursFilter.Where(p => p.EmployeeId == employeeId);
-            var hoursViewModel = _mapper.Map<List<Hour>, List<HourViewModel>>((List<Hour>)hoursFilter);
+            var hoursFilter_ = _application.Query().Where(p => p.EmployeeId == employeeId).ToList();
+            var hoursViewModel = _mapper.Map<List<Hour>, List<HourViewModel>>((List<Hour>)hoursFilter_);
             return hoursViewModel;
         }
 
@@ -86,7 +84,7 @@ namespace PontoAPI.Web.Controllers
                 var result = await _application.SaveChangesAsync();
                 if (result)
                 {
-                    var hours = await RetornarListaHour(hour.EmployeeId);
+                    var hours = RetornarListaHour(hour.EmployeeId);
                     return Ok(hours);
                 }
                 return BadRequest("Erro ao salvar a hora!");
@@ -144,7 +142,7 @@ namespace PontoAPI.Web.Controllers
                 var result = await _application.SaveChangesAsync();
                 if (result)
                 {
-                    var hours = await RetornarListaHour(hour.EmployeeId);
+                    var hours = RetornarListaHour(hour.EmployeeId);
                     return Ok(hours);
                 }
 

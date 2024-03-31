@@ -49,11 +49,6 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public Task<TypeDate> Get(string value)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<TypeDate> Post(TypeDate typeDate)
         {
             try
@@ -89,6 +84,11 @@ namespace PontoAPI.Infrastructure.Application
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public IQueryable<TypeDate> Query()
+        {
+            return _dataContext.Query();
         }
 
         public async Task<bool> SaveChangesAsync()
