@@ -55,12 +55,14 @@ namespace PontoAPI.Infrastructure.Application
             throw new NotImplementedException();
         }
 
-        public void Post(Company company)
+        public async Task<Company> Post(Company company)
         {
             try
             {
                 company.Id = new Guid();
                 _dataContext.Post(company);
+
+                return await _dataContext.Get(company.Id);
             }
             catch
             {

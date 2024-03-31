@@ -81,7 +81,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                _application.Post(hour);
+                await _application.Post(hour);
 
                 var result = await _application.SaveChangesAsync();
                 if (result)
@@ -93,7 +93,7 @@ namespace PontoAPI.Web.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Hour not found. Error: " + ex.Message);
+                return BadRequest("Error: " + ex.Message);
             }
         }
 

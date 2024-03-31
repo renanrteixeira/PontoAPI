@@ -80,6 +80,11 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
+        public IQueryable<Company> Query()
+        {
+            return _dataContext.Companies;
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             try

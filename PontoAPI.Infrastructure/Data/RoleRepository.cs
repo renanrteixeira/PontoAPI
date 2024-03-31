@@ -79,6 +79,11 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
+        public IQueryable<Role> Query()
+        {
+            return _dataContext.Roles;
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             try

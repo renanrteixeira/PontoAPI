@@ -85,6 +85,11 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
+        public IQueryable<User> Query()
+        {
+            return _dataContext.Users;
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             try
