@@ -76,7 +76,7 @@ namespace PontoAPI.Web.Controllers
             {
                 var company = _mapper.Map<CompanyViewModel, Company>(companyViewModel);
 
-                await _application.Post(company);
+                _ = await _application.Post(company);
 
                 var result = await _application.SaveChangesAsync();
 
