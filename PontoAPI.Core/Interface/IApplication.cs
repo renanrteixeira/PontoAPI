@@ -10,6 +10,8 @@ namespace PontoAPI.Core.Interface
 
         Task<T> Put(T entidade);
 
+        IQueryable<T> Query();
+
         void Delete(T entidade);
 
         Task<bool> SaveChangesAsync();

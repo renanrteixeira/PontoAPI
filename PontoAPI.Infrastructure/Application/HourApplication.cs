@@ -62,7 +62,6 @@ namespace PontoAPI.Infrastructure.Application
             try
             {
                 var horasLancadas = _dataContext.Query().Where(p => p.EmployeeId == hour.EmployeeId && p.Date == hour.Date && p.Type == hour.Type).ToList();
-                //var horaExiste = horasLancadas.Any(p => p.EmployeeId == hour.EmployeeId && p.Date == hour.Date && p.Type == hour.Type);
                 if (horasLancadas.Count > 0) throw new Exception("Data já cadastrada para o tipo de dado!");
                 hour.Id = new Guid();
                 var hourBase = await _dataContextTypeDate.Get(hour.TypeDateId) ?? throw new Exception("Tipo de hora não identificada!");
@@ -108,6 +107,11 @@ namespace PontoAPI.Infrastructure.Application
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public IQueryable<Hour> Query()
+        {
+            return _dataContext.Query();
         }
 
         public async Task<bool> SaveChangesAsync()
