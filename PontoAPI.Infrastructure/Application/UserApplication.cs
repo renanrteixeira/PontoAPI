@@ -63,13 +63,15 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public void Post(User user)
+        public async Task<User> Post(User user)
         {
             try
             {
                 user.Id = new Guid();
                 user.Password = Hash.GerarHash(user.Password);
                 _dataContext.Post(user);
+
+                return await _dataContext.Get(user.Id);
             }
             catch
             {

@@ -78,6 +78,11 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
+        public IQueryable<TypeDate> Query()
+        {
+            return _dataContext.Typedates;
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             try

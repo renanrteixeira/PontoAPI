@@ -78,6 +78,11 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
+        public IQueryable<Hour> Query()
+        {
+            return _dataContext.Hours;
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             try

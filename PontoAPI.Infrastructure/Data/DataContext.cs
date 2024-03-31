@@ -18,7 +18,7 @@ namespace PontoAPI.Infrastructure.Data
         {
 
         }
-        
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
@@ -46,7 +46,7 @@ namespace PontoAPI.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new TypeDateMap());
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new HourMap());
-            
+
             base.OnModelCreating(modelBuilder);
         }
     }
