@@ -38,7 +38,7 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
-        public async Task<Role> Get(int id)
+        public async Task<Role> Get(Guid id)
         {
             try
             {
@@ -77,6 +77,11 @@ namespace PontoAPI.Infrastructure.Data
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public IQueryable<Role> Query()
+        {
+            return _dataContext.Roles;
         }
 
         public async Task<bool> SaveChangesAsync()

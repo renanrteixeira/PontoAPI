@@ -36,12 +36,12 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public async Task<TypeDate> Get(int id)
+        public async Task<TypeDate> Get(Guid id)
         {
             try
             {
-                var company = await _dataContext.Get(id);
-                return company;
+                var typeDate = await _dataContext.Get(id);
+                return typeDate;
             }
             catch
             {
@@ -54,11 +54,14 @@ namespace PontoAPI.Infrastructure.Application
             throw new NotImplementedException();
         }
 
-        public void Post(TypeDate typeDate)
+        public async Task<TypeDate> Post(TypeDate typeDate)
         {
             try
             {
+                typeDate.Id = new Guid();
                 _dataContext.Post(typeDate);
+
+                return await _dataContext.Get(typeDate.Id);
             }
             catch
             {

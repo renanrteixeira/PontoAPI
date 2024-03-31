@@ -8,8 +8,8 @@ namespace PontoAPI.Core.Entities
         public DateOnly Admission { get; set; }
         public char Gender { get; set; }
         public char Status { get; set; }
-        public int RoleId { get; set; }
-        public int CompanyId { get; set; }
+        public Guid RoleId { get; set; }
+        public Guid CompanyId { get; set; }
 
         public Role? Role { get; set; }
         public Company? Company { get; set; }

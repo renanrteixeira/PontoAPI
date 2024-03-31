@@ -37,7 +37,7 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
-        public async Task<TypeDate> Get(int id)
+        public async Task<TypeDate> Get(Guid id)
         {
             try
             {
@@ -76,6 +76,11 @@ namespace PontoAPI.Infrastructure.Data
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public IQueryable<TypeDate> Query()
+        {
+            return _dataContext.Typedates;
         }
 
         public async Task<bool> SaveChangesAsync()

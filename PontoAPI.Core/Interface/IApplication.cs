@@ -4,11 +4,11 @@ namespace PontoAPI.Core.Interface
     {
         Task<IEnumerable<T>> Get();
 
-        Task<T> Get(int id);
+        Task<T> Get(Guid id);
 
         Task<T> Get(string value);
 
-        void Post(T entidade);
+        Task<T> Post(T entidade);
 
         Task<T> Put(T entidade);
 

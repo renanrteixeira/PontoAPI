@@ -39,7 +39,7 @@ namespace PontoAPI.Infrastructure.Data
 
         }
 
-        public async Task<Company> Get(int id)
+        public async Task<Company> Get(Guid id)
         {
             try
             {
@@ -78,6 +78,11 @@ namespace PontoAPI.Infrastructure.Data
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public IQueryable<Company> Query()
+        {
+            return _dataContext.Companies;
         }
 
         public async Task<bool> SaveChangesAsync()

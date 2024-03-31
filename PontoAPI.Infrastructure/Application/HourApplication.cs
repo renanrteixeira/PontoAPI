@@ -1,15 +1,18 @@
 using PontoAPI.Core.Interface;
 using PontoAPI.Core.Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace PontoAPI.Infrastructure.Application
 {
-    public class HourApplication : IApplicationGuid<Hour>
+    public class HourApplication : IApplication<Hour>
     {
-        private readonly IRepositoryGuid<Hour> _dataContext;
+        private readonly IRepository<Hour> _dataContext;
+        private readonly IRepository<TypeDate> _dataContextTypeDate;
 
-        public HourApplication(IRepositoryGuid<Hour> dataContext)
+        public HourApplication(IRepository<Hour> dataContext, IRepository<TypeDate> dataContextTypeDate)
         {
             _dataContext = dataContext;
+            _dataContextTypeDate = dataContextTypeDate;
         }
 
         public void Delete(Hour hour)
@@ -49,18 +52,29 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public void Post(Hour hour)
+        public Task<Hour> Get(string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Hour> Post(Hour hour)
         {
             try
             {
+                var horasLancadas = _dataContext.Query().Where(p => p.EmployeeId == hour.EmployeeId && p.Date == hour.Date && p.Type == hour.Type).ToList();
+                //var horaExiste = horasLancadas.Any(p => p.EmployeeId == hour.EmployeeId && p.Date == hour.Date && p.Type == hour.Type);
+                if (horasLancadas.Count > 0) throw new Exception("Data já cadastrada para o tipo de dado!");
                 hour.Id = new Guid();
-                hour.Balance = (hour.Hour2 - hour.Hour1) + (hour.Hour4 - hour.Hour3) + (hour.Hour6 - hour.Hour5);
+                var hourBase = await _dataContextTypeDate.Get(hour.TypeDateId) ?? throw new Exception("Tipo de hora não identificada!");
+                hour.Balance = ((hour.Hour2 - hour.Hour1) + (hour.Hour4 - hour.Hour3) + (hour.Hour6 - hour.Hour5)) - hourBase.Time;
 
                 _dataContext.Post(hour);
+
+                return await _dataContext.Get(hour.Id);
             }
-            catch
+            catch (Exception e)
             {
-                throw new NotImplementedException();
+                throw new Exception(e.Message);
             }
         }
 
@@ -81,7 +95,9 @@ namespace PontoAPI.Infrastructure.Application
                     hourdb.Hour4 = hour.Hour4;
                     hourdb.Hour5 = hour.Hour5;
                     hourdb.Hour6 = hour.Hour6;
-                    hourdb.Balance = (hour.Hour2 - hour.Hour1) + (hour.Hour4 - hour.Hour3) + (hour.Hour6 - hour.Hour5);
+
+                    var hourBase = await _dataContextTypeDate.Get(hour.TypeDateId) ?? throw new Exception("Tipo de hora não identificada!");
+                    hour.Balance = ((hour.Hour2 - hour.Hour1) + (hour.Hour4 - hour.Hour3) + (hour.Hour6 - hour.Hour5)) - hourBase.Time;
 
                     _dataContext.Put(hourdb);
 

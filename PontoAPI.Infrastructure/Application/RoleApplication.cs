@@ -24,12 +24,12 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public async Task<Role> Get(int id)
+        public async Task<Role> Get(Guid id)
         {
             try
             {
-                var company = await _dataContext.Get(id);
-                return company;
+                var role = await _dataContext.Get(id);
+                return role;
             }
             catch
             {
@@ -37,11 +37,14 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public void Post(Role role)
+        public async Task<Role> Post(Role role)
         {
             try
             {
+                role.Id = new Guid();
                 _dataContext.Post(role);
+
+                return await _dataContext.Get(role.Id);
             }
             catch
             {

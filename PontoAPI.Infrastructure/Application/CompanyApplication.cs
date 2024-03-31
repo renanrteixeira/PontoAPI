@@ -1,5 +1,6 @@
 using PontoAPI.Core.Interface;
 using PontoAPI.Core.Entities;
+using MySqlConnector;
 
 namespace PontoAPI.Infrastructure.Application
 {
@@ -36,7 +37,7 @@ namespace PontoAPI.Infrastructure.Application
             }
         }
 
-        public async Task<Company> Get(int id)
+        public async Task<Company> Get(Guid id)
         {
             try
             {
@@ -54,11 +55,14 @@ namespace PontoAPI.Infrastructure.Application
             throw new NotImplementedException();
         }
 
-        public void Post(Company company)
+        public async Task<Company> Post(Company company)
         {
             try
             {
+                company.Id = new Guid();
                 _dataContext.Post(company);
+
+                return await _dataContext.Get(company.Id);
             }
             catch
             {

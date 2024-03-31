@@ -8,10 +8,10 @@ namespace PontoAPI.Web.Controllers
 {
     public class HourController : DefaultControllerBase
     {
-        private readonly IApplicationGuid<Hour> _application;
+        private readonly IApplication<Hour> _application;
         private readonly IMapper _mapper;
 
-        public HourController(IApplicationGuid<Hour> application, IMapper mapper)
+        public HourController(IApplication<Hour> application, IMapper mapper)
         {
             _application = application;
             _mapper = mapper;
@@ -24,7 +24,7 @@ namespace PontoAPI.Web.Controllers
             return hoursViewModel;
         }
 
-        private async Task<List<HourViewModel>> RetornarListaHour(int employeeId)
+        private async Task<List<HourViewModel>> RetornarListaHour(Guid employeeId)
         {
             var hours = await _application.Get();
             var hoursFilter = hours.ToList();
@@ -81,7 +81,7 @@ namespace PontoAPI.Web.Controllers
         {
             try
             {
-                _application.Post(hour);
+                await _application.Post(hour);
 
                 var result = await _application.SaveChangesAsync();
                 if (result)
@@ -93,7 +93,7 @@ namespace PontoAPI.Web.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Hour not found. Error: " + ex.Message);
+                return BadRequest("Error: " + ex.Message);
             }
         }
 

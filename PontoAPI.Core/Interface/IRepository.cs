@@ -2,10 +2,9 @@ namespace PontoAPI.Core.Interface
 {
     public interface IRepository<T>
     {
-
         Task<IEnumerable<T>> Get();
 
-        Task<T> Get(int id);
+        Task<T> Get(Guid id);
 
         Task<T> Get(string value);
 
@@ -16,6 +15,8 @@ namespace PontoAPI.Core.Interface
         void Delete(T entidade);
 
         Task<bool> SaveChangesAsync();
+
+        IQueryable<T> Query();
 
     }
 }

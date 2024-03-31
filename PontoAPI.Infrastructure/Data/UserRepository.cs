@@ -37,7 +37,7 @@ namespace PontoAPI.Infrastructure.Data
             }
         }
 
-        public async Task<User> Get(int id)
+        public async Task<User> Get(Guid id)
         {
             try
             {
@@ -83,6 +83,11 @@ namespace PontoAPI.Infrastructure.Data
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public IQueryable<User> Query()
+        {
+            return _dataContext.Users;
         }
 
         public async Task<bool> SaveChangesAsync()

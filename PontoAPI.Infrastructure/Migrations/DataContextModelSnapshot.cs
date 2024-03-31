@@ -21,9 +21,10 @@ namespace PontoAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("PontoAPI.Core.Entities.Company", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
                         .HasColumnName("id");
 
                     b.Property<string>("Address")
@@ -51,17 +52,21 @@ namespace PontoAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("PontoAPI.Core.Entities.Employee", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
                         .HasColumnName("id");
 
                     b.Property<DateOnly>("Admission")
                         .HasColumnType("date")
                         .HasColumnName("admission");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
+                        .HasColumnName("companyId");
 
                     b.Property<string>("Gender")
                         .IsRequired()
@@ -75,8 +80,11 @@ namespace PontoAPI.Infrastructure.Migrations
                         .HasColumnType("varchar")
                         .HasColumnName("name");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
+                        .HasColumnName("roleId");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -109,8 +117,11 @@ namespace PontoAPI.Infrastructure.Migrations
                         .HasColumnType("date")
                         .HasColumnName("date");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
+                        .HasColumnName("employeeId");
 
                     b.Property<TimeSpan>("Hour1")
                         .HasColumnType("time")
@@ -140,8 +151,11 @@ namespace PontoAPI.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("type");
 
-                    b.Property<int>("TypeDateId")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeDateId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
+                        .HasColumnName("typeDateId");
 
                     b.HasKey("Id");
 
@@ -154,9 +168,10 @@ namespace PontoAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("PontoAPI.Core.Entities.Role", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
                         .HasColumnName("id");
 
                     b.Property<string>("Name")
@@ -172,9 +187,10 @@ namespace PontoAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("PontoAPI.Core.Entities.TypeDate", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
                         .HasColumnName("id");
 
                     b.Property<string>("Name")
@@ -200,9 +216,10 @@ namespace PontoAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("PontoAPI.Core.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
                         .HasColumnName("id");
 
                     b.Property<string>("Admin")

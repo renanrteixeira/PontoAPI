@@ -28,7 +28,8 @@ namespace PontoAPI.Infrastructure.Mappings
                      builder.Property(p => p.EmployeeId)
                              .HasColumnName("employeeId")
                              .IsRequired()
-                             .HasColumnType("int");
+                             .HasColumnType("varchar")
+                            .HasMaxLength(100);
                      builder.Property(p => p.Date)
                             .HasColumnName("date")
                             .IsRequired()
@@ -40,7 +41,8 @@ namespace PontoAPI.Infrastructure.Mappings
                      builder.Property(p => p.TypeDateId)
                              .HasColumnName("typeDateId")
                              .IsRequired()
-                             .HasColumnType("int");
+                             .HasColumnType("varchar")
+                            .HasMaxLength(100);
                      builder.Property(p => p.Hour1)
                             .HasColumnName("hour1")
                             .IsRequired()
