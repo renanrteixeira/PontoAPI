@@ -77,7 +77,7 @@ namespace PontoAPI.Web.Controllers
             {
                 var role_ = _mapper.Map<RoleViewModel, Role>(role);
 
-                _ = _application.Post(role_);
+                _ = await _application.Post(role_);
 
                 var result = await _application.SaveChangesAsync();
 

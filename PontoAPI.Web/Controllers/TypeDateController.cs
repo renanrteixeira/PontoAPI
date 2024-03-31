@@ -108,7 +108,7 @@ namespace PontoAPI.Web.Controllers
                     typeDatedb.Time = typeDate.Time;
                     typeDatedb.Weekend = typeDate.Weekend;
 
-                    await _application.Put(typeDatedb);
+                    _ = await _application.Put(typeDatedb);
 
                     var result = await _application.SaveChangesAsync();
 

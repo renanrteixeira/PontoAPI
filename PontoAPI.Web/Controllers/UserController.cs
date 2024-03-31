@@ -78,7 +78,7 @@ namespace PontoAPI.Web.Controllers
             {
                 if (user.UserName == null) return BadRequest("Dados não enviados!");
 
-                _ = _application.Post(user);
+                _ = await _application.Post(user);
 
                 var result = await _application.SaveChangesAsync();
                 if (result)
