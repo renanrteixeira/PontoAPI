@@ -84,7 +84,7 @@ namespace PontoAPI.Web.Controllers
                 if (result)
                 {
                     var listaRole = await RetornarListaRole();
-                    return Ok(listaRole);
+                    return Created(nameof(Post), listaRole);
                 };
 
                 return BadRequest("Erro ao inserir os dados!");

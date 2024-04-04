@@ -85,7 +85,7 @@ namespace PontoAPI.Web.Controllers
                 if (result)
                 {
                     var typeDateViewModel = await RetornarListaTypeDate();
-                    return Ok(typeDateViewModel);
+                    return Created(nameof(Post), typeDateViewModel);
                 }
 
                 return BadRequest("Erro ao salvar o tipo de data!");

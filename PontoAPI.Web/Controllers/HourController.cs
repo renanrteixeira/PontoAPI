@@ -85,7 +85,7 @@ namespace PontoAPI.Web.Controllers
                 if (result)
                 {
                     var hours = RetornarListaHour(hour.EmployeeId);
-                    return Ok(hours);
+                    return Created(nameof(Post), hours);
                 }
                 return BadRequest("Erro ao salvar a hora!");
             }
