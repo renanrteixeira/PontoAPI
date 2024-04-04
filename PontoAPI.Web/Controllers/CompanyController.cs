@@ -3,6 +3,7 @@ using PontoAPI.Core.Interface;
 using PontoAPI.Core.Entities;
 using AutoMapper;
 using PontoAPI.Web.ViewModel;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace PontoAPI.Web.Controllers
 {
@@ -83,7 +84,7 @@ namespace PontoAPI.Web.Controllers
                 if (result)
                 {
                     var companyViewModel_ = await RetornarListaCompany();
-                    return Ok(companyViewModel_);
+                    return Created(nameof(Post), companyViewModel_);
                 }
 
                 return BadRequest("Erro ao salvar a empresa!");

@@ -1,9 +1,6 @@
-using System.Threading;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PontoAPI.Core.Entities;
-using PontoAPI.Core.Helper;
 using PontoAPI.Core.Interface;
 using PontoAPI.Web.ViewModel;
 
@@ -84,7 +81,7 @@ namespace PontoAPI.Web.Controllers
                 if (result)
                 {
                     var userViewModel = await RetornarListaUser();
-                    return Ok(userViewModel);
+                    return Created(nameof(Post), userViewModel);
                 }
 
                 return BadRequest("Erro ao salvar o usuário!");
