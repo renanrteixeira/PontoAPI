@@ -82,7 +82,7 @@ namespace PontoAPI.Web.Controllers
                 if (result)
                 {
                     var employeeViewModel_ = await RetornarListaEmployee();
-                    return Ok(employeeViewModel_);
+                    return Created(nameof(Post), employeeViewModel_);
                 }
                 return BadRequest("Erro ao salvar a funcionário!");
             }
