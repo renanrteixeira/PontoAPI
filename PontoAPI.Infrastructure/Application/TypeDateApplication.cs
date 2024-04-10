@@ -53,7 +53,7 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
-                typeDate.Id = new Guid();
+                typeDate.Id = Guid.NewGuid();
                 _dataContext.Post(typeDate);
 
                 return await _dataContext.Get(typeDate.Id);

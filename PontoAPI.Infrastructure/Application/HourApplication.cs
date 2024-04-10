@@ -63,7 +63,7 @@ namespace PontoAPI.Infrastructure.Application
             {
                 var horasLancadas = _dataContext.Query().Where(p => p.EmployeeId == hour.EmployeeId && p.Date == hour.Date && p.Type == hour.Type).ToList();
                 if (horasLancadas.Count > 0) throw new Exception("Data já cadastrada para o tipo de dado!");
-                hour.Id = new Guid();
+                hour.Id = Guid.NewGuid();
                 var hourBase = await _dataContextTypeDate.Get(hour.TypeDateId) ?? throw new Exception("Tipo de hora não identificada!");
                 hour.Balance = ((hour.Hour2 - hour.Hour1) + (hour.Hour4 - hour.Hour3) + (hour.Hour6 - hour.Hour5)) - hourBase.Time;
 

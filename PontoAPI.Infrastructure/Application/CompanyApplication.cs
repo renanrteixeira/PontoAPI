@@ -59,7 +59,7 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
-                company.Id = new Guid();
+                company.Id = Guid.NewGuid();
                 _dataContext.Post(company);
 
                 return await _dataContext.Get(company.Id);
