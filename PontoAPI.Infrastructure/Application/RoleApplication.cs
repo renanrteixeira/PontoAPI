@@ -41,7 +41,7 @@ namespace PontoAPI.Infrastructure.Application
         {
             try
             {
-                role.Id = new Guid();
+                role.Id = Guid.NewGuid();
                 _dataContext.Post(role);
 
                 return await _dataContext.Get(role.Id);

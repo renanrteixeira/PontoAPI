@@ -57,7 +57,7 @@ namespace PontoAPI.Infrastructure.Application
                 var userDb = _dataContext.Query().Where(p => p.UserName == user.UserName).ToList();
                 if (userDb.Count > 0) throw new Exception("Usuário já cadastrado!");
 
-                user.Id = new Guid();
+                user.Id = Guid.NewGuid();
                 user.Password = Hash.GerarHash(user.Password);
                 _dataContext.Post(user);
 
